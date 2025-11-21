@@ -49,12 +49,12 @@ logging.basicConfig(level=logging.INFO)
 # -----------------------
 def get_db_connection():
     conn = mysql.connector.connect(
-        host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME"),
-        autocommit=False
+        host=os.getenv("MYSQL_HOST"),
+        port=os.getenv("MYSQL_PORT"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        database=os.getenv("MYSQL_DATABASE")
+
     )
     print("✅ Connected to database:", os.getenv("DB_NAME"))
     return conn
