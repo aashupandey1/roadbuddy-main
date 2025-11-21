@@ -107,11 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST",
         body: formData,
       });
+      
+    const text = await resp.text();
 
-      if (resp.redirected) {
-        window.location.href = resp.url; // Go to emergency_success page
-        return;
-      }
+    if (text.includes("emergency_success")) {
+    const redirectUrl = resp.url || "/emergency_success";
+    window.location.href = redirectUrl;
+    return;
+     }
+
 
       showPopup("⚠️ Booking saved but no redirect received.", "error");
 
