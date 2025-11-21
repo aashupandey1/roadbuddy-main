@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Mechanic | RoadBuddy</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='book_mechanic.css') }}">
+</head>
+
+<body>
+  <div class="booking-container">
+    <h1>SCHEDULE A MECHANIC</h1>
+
+    <!-- ⭐ FORM STARTS HERE -->
+    <form id="scheduleForm" method="POST" action="{{ url_for('book_schedule') }}">
+
+      <!-- Full Name -->
+      <div class="form-group">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="\+91[0-9]{10}" placeholder="+91XXXXXXXXXX" required>
+      </div>
+
+      <!-- Vehicle Type -->
+      <div class="form-group">
+        <label for="vehicle">Vehicle Type:</label>
+        <select id="vehicle" name="vehicle" required>
+          <option value="">-- Select Vehicle --</option>
+          <option value="Bike">🏍️ Bike / Scooter</option>
+          <option value="Car">🚗 Car</option>
+          <option value="Truck">🚚 Truck / Van</option>
+          <option value="EV">⚡ Electric Vehicle</option>
+        </select>
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <div class="address-row">
+          <input type="text" id="address" name="address" placeholder="Enter your location..." required>
+          <button type="button" id="detectLocationBtn" class="btn-small">
+            📍 Get Location
+          </button>
+        </div>
+      </div>
+
+      <!-- Preferred Date -->
+      <div class="form-group">
+        <label for="date">Preferred Date:</label>
+        <input type="date" id="date" name="date" required min="{{ current_date }}">
+      </div>
+
+      <!-- Preferred Time -->
+      <div class="form-group">
+        <label for="time">Preferred Time:</label>
+        <input type="time" id="time" name="time" required>
+      </div>
+
+      <!-- Service Type -->
+      <div class="form-group">
+        <label for="service_type">Service Type:</label>
+        <select id="service_type" name="service_type" required>
+          <option value="">-- Select Service Type --</option>
+          <option value="General Service">🧽 General Service</option>
+          <option value="Oil Change">🛢️ Oil Change</option>
+          <option value="Brake Check">🛞 Brake Check</option>
+          <option value="Battery Service">🔋 Battery Maintenance</option>
+          <option value="Full Inspection">🔧 Full Vehicle Inspection</option>
+        </select>
+      </div>
+
+      <!-- ⭐ FORM BUTTONS -->
+      <div class="button-row">
+        <button type="submit" class="btn-primary">Confirm Schedule</button>
+        <a href="{{ url_for('index') }}" class="btn-outline">Back to Home</a>
+      </div>
+
+    </form>
+    <!-- ⭐ FORM ENDS HERE -->
+
+  </div>
+
+  <script src="{{ url_for('static', filename='schedule_mechanic.js') }}"></script>
+</body>
+</html>

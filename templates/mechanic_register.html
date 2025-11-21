@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanic Registration | Road Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <h2 class="login-title">Mechanic Account Setup</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+            <form method="POST" action="/process_mechanic_register" enctype="multipart/form-data">
+            
+            <div class="login-group">
+                <label for="mech_id">Mechanic ID (Unique)</label>
+                <input type="text" id="mech_id" name="mechanic_id" placeholder="Enter Unique Number" required>
+            </div>
+            
+            <div class="login-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter Your Full Name" required>
+            </div>
+            
+            <div class="login-group">
+                <label for="specialization">Specialization (e.g., Car, Bike, Truck)</label>
+                <input type="text" id="specialization" name="specialization" placeholder=" Enter Your Specialization" required>
+            </div>
+            
+            <div class="login-group">
+                <label for="area">Service Area (City/Area Code)</label>
+                <input type="text" id="area" name="service_area" placeholder="Enter Your Service Area" required>
+            </div>
+            
+            <div class="login-group">
+                <label for="rate">Hourly Rate (₹)</label>
+                <input type="number" id="rate" name="hourly_rate" placeholder="Enter Ammount " required>
+            </div>
+            
+            <div class="login-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" value="+91" pattern="\+91[0-9]{10}" title="Use +91XXXXXXXXXX format" placeholder="Enter Your Phone Number" required>
+            </div>
+
+            <div class="login-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="login-group">
+                <label for="live_photo">Live Photo (For Verification)</label>
+                <input type="file" id="live_photo" name="live_photo" accept="image/*" capture="user" required>
+            </div>
+
+            <div class="login-group">
+                <label for="password">Set Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a Passsword" required>
+            </div>
+            
+            <button type="submit" class="btn login-button">REGISTER & SUBMIT FOR REVIEW</button>
+        </form>
+        
+        <p class="register-text">
+            <a href="/mechanic_login" class="register-link">Back to Login</a>
+        </p>
+
+    </div>
+</body>
+</html>

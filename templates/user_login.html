@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login | Road Buddy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='login_styles.css') }}"> -->
+
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <h2 class="login-title">User Login</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" action="/process_user_login">
+            
+            <div class="login-group">
+                <label for="username">Email / Phone</label>
+                <input type="text" id="username" name="username"  placeholder="Email Address or Phone Number" required>
+            </div>
+            
+            <div class="login-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Your Passsword" required>
+            </div>
+            
+            <button type="submit" class="btn login-button">LOGIN</button>
+            
+            <a href="#" class="forgot-link">Forgot Password?</a>
+            
+        </form>
+        
+        <p class="register-text">
+            New User? <a href="/user_register" class="register-link">Register Here</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

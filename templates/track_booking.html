@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Track Mechanic | RoadBuddy</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+    .info-box {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.6);
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: #ff6600;
+      font-weight: 600;
+      z-index: 10;
+    }
+  </style>
+  <!-- Google Maps JS (or you can switch to Leaflet for free) -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</head>
+<body>
+  <div class="info-box">📍 Tracking your mechanic in real time...</div>
+  <div id="map"></div>
+
+  <script>
+    let map, marker;
+
+    function initMap(lat = 0, lng = 0) {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat, lng },
+        zoom: 13,
+        styles: [
+          { elementType: "geometry", stylers: [{ color: "#1c1c1c" }] },
+          { elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] },
+          { elementType: "labels.text.stroke", stylers: [{ color: "#000000" }] }
+        ]
+      });
+      marker = new google.maps.Marker({
+        position: { lat, lng },
+        map,
+        icon: "https://cdn-icons-png.flaticon.com/512/684/684908.png"
+      });
+    }
+
+    async function fetchLocation() {
+      const res = await fetch(`/booking/{{ booking_id }}/status`);
+      const data = await res.json();
+      if (!data.success) return;
+      const info = data.data;
+      if (info.mechanic_lat && info.mechanic_lng) {
+        const lat = parseFloat(info.mechanic_lat);
+        const lng = parseFloat(info.mechanic_lng);
+        if (!map) initMap(lat, lng);
+        marker.setPosition({ lat, lng });
+        map.setCenter({ lat, lng });
+      }
+    }
+
+    fetchLocation();
+    setInterval(fetchLocation, 5000); // update every 5 seconds
+  </script>
+</body>
+</html>

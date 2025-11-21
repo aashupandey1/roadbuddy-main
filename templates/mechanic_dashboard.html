@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mechanic Dashboard | RoadBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='mechanic_dashboard.css') }}">
+</head>
+<body>
+  <div class="dash">
+    <h1>Mechanic Dashboard</h1>
+    <input id="mechanicId" placeholder="Enter your Mechanic ID">
+    <button id="registerBtn">Register</button>
+
+    <div id="notification" style="display:none;">
+      <h3>🚨 New Job Request!</h3>
+      <p id="jobDetails"></p>
+      <button id="acceptBtn">Accept</button>
+      <button id="declineBtn">Decline</button>
+    </div>
+
+    <div id="log"></div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io.connect(window.location.origin);
+    let mechId = null;
+    let currentBooking = null;
+
+    socket.on('connect', () => console.log("Connected to RoadBuddy server."));
+    socket.on('registered', data => log("✅ " + data.message));
+    socket.on('job_request', data => {
+      currentBooking = data.booking_uuid;
+      document.getElementById('notification').style.display = 'block';
+      document.getElementById('jobDetails').innerText =
+        `Booking ID: ${data.booking_uuid} | Distance: ${data.distance}km`;
+    });
+
+    function log(msg){ document.getElementById('log').innerHTML += `<p>${msg}</p>`; }
+
+    document.getElementById('registerBtn').addEventListener('click', () => {
+      mechId = document.getElementById('mechanicId').value.trim();
+      if(!mechId) return alert("Enter mechanic ID.");
+      socket.emit('register_mechanic', {mechanic_id: mechId});
+      log("🔧 Registered mechanic: " + mechId);
+    });
+
+    document.getElementById('acceptBtn').addEventListener('click', () => {
+      socket.emit('accept_booking', {booking_uuid: currentBooking, mechanic_id: mechId});
+      document.getElementById('notification').style.display = 'none';
+      log("✅ Accepted booking " + currentBooking);
+    });
+
+    document.getElementById('declineBtn').addEventListener('click', () => {
+      socket.emit('decline_booking', {booking_uuid: currentBooking, mechanic_id: mechId});
+      document.getElementById('notification').style.display = 'none';
+      log("❌ Declined booking " + currentBooking);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emergency Booking Confirmed</title>
+
+    <style>
+        body {
+            background: #000;
+            color: white;
+            font-family: Poppins, sans-serif;
+            text-align: center;
+        }
+        .box {
+            width: 50%;
+            margin: 100px auto;
+            padding: 40px;
+            background: #111;
+            border-radius: 20px;
+            box-shadow: 0 0 30px orange;
+        }
+        .btn {
+            background: orange;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>🚨 Emergency Booking Confirmed!</h1>
+    <p>Your booking ID is: <b>{{ booking_id }}</b></p>
+    <p>A mechanic will be notified immediately.</p>
+
+    <br>
+    <a class="btn" href="/book_mechanic">Back to Home</a>
+</div>
+
+</body>
+</html>

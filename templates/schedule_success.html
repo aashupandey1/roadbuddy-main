@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule Confirmed</title>
+    <style>
+        body { 
+            background:#000; 
+            color:white; 
+            font-family: Poppins; 
+            text-align:center; 
+            padding-top:100px;
+        }
+        .box {
+            background:#111;
+            padding:30px;
+            width:450px;
+            margin:auto;
+            border-radius:12px;
+            box-shadow:0 0 15px rgba(255,120,0,0.4);
+        }
+        .btn {
+            padding:12px 25px;
+            background:#ff6600;
+            border:none;
+            color:white;
+            border-radius:8px;
+            font-size:18px;
+            cursor:pointer;
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>✅ Schedule Confirmed!</h1>
+    <p>Your booking ID is: <b>{{ booking_id }}</b></p>
+    <p>A mechanic will be notified shortly.</p>
+
+    <a href="{{ url_for('index') }}">
+        <button class="btn">Back to Home</button>
+    </a>
+</div>
+
+</body>
+</html>

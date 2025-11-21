@@ -1,0 +1,48 @@
+<!-- templates/verify_otp.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify OTP | RoadBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='verify_otp.css') }}">
+</head>
+<body>
+  <div class="otp-container">
+    <h1>🔐 Verify OTP</h1>
+    <p>Please enter the OTP sent to your email to start service.</p>
+
+    <form id="otpForm">
+      <input type="text" id="otp" name="otp" placeholder="Enter 6-digit OTP" maxlength="6" required>
+      <button type="submit" id="verifyBtn">Verify OTP</button>
+    </form>
+
+    <div id="otpMsg"></div>
+  </div>
+
+    <script>
+  document.getElementById('otpForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const otp = document.getElementById('otp').value.trim();
+    const res = await fetch(`/booking/{{ booking_id }}/verify_otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ otp })
+    });
+    const data = await res.json();
+    const msg = document.getElementById('otpMsg');
+    if (data.success) {
+      msg.innerHTML = "✅ OTP Verified! Redirecting to payment page...";
+      msg.style.color = "lime";
+      setTimeout(() => {
+        window.location.href = `/booking/{{ booking_id }}/end_service`;
+      }, 1800);
+    } else {
+      msg.innerHTML = "❌ " + data.message;
+      msg.style.color = "red";
+    }
+  });
+</script>
+
+  </script>
+</body>
+</html>

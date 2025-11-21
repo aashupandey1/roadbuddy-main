@@ -1,0 +1,5 @@
+body { font-family: Arial; background: #eef2f6; color: #222; }
+.dash { max-width: 500px; margin: 40px auto; background: white; padding: 20px; border-radius: 10px; }
+#notification { border: 2px solid #ccc; padding: 10px; border-radius: 8px; margin-top: 20px; background: #fffbf2; }
+button { margin: 5px; padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+#declineBtn { background: #dc3545; }

@@ -1,0 +1,268 @@
+/* ========== GLOBAL STYLES ========== */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #000;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+/* ========== CONTAINER ========== */
+.booking-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 60px auto;
+  background: #111;
+  border-radius: 12px;
+  padding: 35px 45px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 80vh;
+}
+
+/* ========== HEADING ========== */
+.booking-container h1 {
+  color: #ff6600;
+  text-transform: uppercase;
+  font-size: 2rem;
+  margin-bottom: 25px; /* reduced gap */
+  letter-spacing: 1px;
+}
+
+/* ========== FORM STYLES ========== */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px; /* even space between inputs */
+}
+
+.form-group {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Labels */
+label {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* Inputs & Dropdowns */
+input, select {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1c1c1c;
+  color: #eee;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+input:focus, select:focus {
+  background-color: #222;
+  border: 1px solid #ff6600;
+}
+
+/* ========== 📍 ADDRESS SECTION ========== */
+.address-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.address-row input {
+  width: 100%;
+  background: #222;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* 📍 Get Location Button */
+.btn-small {
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #ff7300, #ff9500);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 6px rgba(255, 115, 0, 0.4);
+}
+
+.btn-small:hover {
+  background: linear-gradient(135deg, #ff8c1a, #ffaa33);
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(255, 145, 0, 0.7);
+}
+
+.btn-small::before {
+  content: "📍";
+  font-size: 15px;
+}
+
+/* ========== MAIN BUTTONS ========== */
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 35px; /* less spacing */
+}
+
+/* Common Button Style */
+.btn-primary,
+.btn-outline {
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 40px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid #ff6600;
+  background-color: transparent;
+  color: #ff6600;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.btn-primary:hover,
+.btn-outline:hover {
+  background-color: #ff6600;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .form-group {
+    width: 100%;
+  }
+
+  .booking-container {
+    padding: 25px;
+    margin: 40px auto;
+  }
+
+  .button-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn-primary, .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* =============================== */
+/* ✅ FIX: Prevent White Autofill / Focus Background */
+/* =============================== */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #1c1c1c inset !important;
+  -webkit-text-fill-color: #eee !important;
+  caret-color: #ff6600 !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Maintain dark color on focus */
+input:focus {
+  background-color: #1c1c1c !important;
+  color: #eee !important;
+  border: 1px solid #ff6600;
+}
+
+/* Also prevent the white background on normal active input */
+input, select, textarea {
+  background-color: #1c1c1c !important;
+  color: #eee !important;
+}
+/* ====================================== */
+/* ✅ FIXED: Date & Time Icons Visible on All Browsers */
+/* ====================================== */
+
+input[type="date"],
+input[type="time"] {
+  background-color: #1c1c1c !important;
+  color: #eee !important;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  outline: none;
+  color-scheme: dark;
+  appearance: none; /* ensures consistency */
+  -webkit-appearance: none;
+}
+
+/* Force icons to be white and visible */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1) sepia(1) saturate(200%) hue-rotate(5deg);
+  opacity: 0.9;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background-color: transparent; /* remove gray background */
+}
+
+/* Orange glow hover */
+input[type="date"]:hover::-webkit-calendar-picker-indicator,
+input[type="time"]:hover::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1) sepia(1) saturate(800%) hue-rotate(30deg);
+  opacity: 1;
+}
+
+/* Keep icon position aligned inside input box */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  margin-right: 6px;
+}
+
+/* Focus style — glowing border */
+input[type="date"]:focus,
+input[type="time"]:focus {
+  border: 1px solid #ff6600;
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.6);
+  background-color: #222;
+}
+
+/* Firefox compatibility */
+input[type="date"]::-moz-focus-inner,
+input[type="time"]::-moz-focus-inner {
+  border: 0;
+}
+
+input[type="date"]::-moz-calendar-picker-indicator,
+input[type="time"]::-moz-calendar-picker-indicator {
+  filter: brightness(0) invert(1) sepia(1) saturate(200%) hue-rotate(10deg);
+  opacity: 0.9;
+}

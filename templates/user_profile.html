@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile | RoadBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="brand">ROADBUDDY USER PROFILE</header>
+
+  <!-- Logout Button -->
+  <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+
+  <!-- Main Content -->
+  <main>
+    <section class="page">
+      <h2>User Profile</h2>
+      <p>Welcome! Please verify or update your basic details below.</p>
+
+      <!-- Profile Form -->
+      <form id="user-profile-form" method="POST" enctype="multipart/form-data" action="{{ url_for('user_profile') }}">
+        <input type="hidden" name="role" value="user">
+
+        <div class="row">
+          <label for="name">Name <span class="required">*</span>
+            <input type="text" id="name" name="name" value="{{ user.name if user else '' }}" required />
+          </label>
+          <label for="dob">Date of Birth
+            <input type="date" id="dob" name="dob" value="{{ user.dob if user and user.dob else '' }}" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label for="phone">Phone Number <span class="required">*</span>
+            <input type="tel" id="phone" name="phone" value="{{ user.phone if user and user.phone else '' }}" required />
+          </label>
+          <label for="email">Email Address
+            <input type="email" id="email" name="email" value="{{ session.get('rb_user_email', '') }}" readonly />
+          </label>
+        </div>
+
+        <div class="row">
+          <label for="address">Address
+            <input type="text" id="address" name="address" placeholder="Enter your address" value="{{ user.address if user and user.address else '' }}" />
+          </label>
+          <label for="car_model">Car Model
+            <input type="text" id="car_model" name="car_model" placeholder="Your car model" value="{{ user.car_model if user and user.car_model else '' }}" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label for="photo">Profile Photo
+            <input type="file" id="photo" name="photo" accept="image/*" onchange="previewPhoto(event)" />
+          </label>
+        </div>
+
+        <div class="preview card small">
+          {% if user and user.photo_url %}
+            <img id="preview-photo" class="avatar" src="{{ user.photo_url }}" alt="Profile Photo">
+          {% else %}
+            <img id="preview-photo" class="avatar" hidden />
+          {% endif %}
+          <div class="meta">
+            <span id="preview-name">{{ user.name if user and user.name else 'Your name' }}</span>
+            <span id="preview-role">User</span>
+          </div>
+        </div>
+
+        <div class="row buttons">
+          <button type="submit" class="btn primary">Save Profile</button>
+          <a href="{{ url_for('index') }}" class="btn ghost">Cancel</a>
+        </div>
+      </form>
+
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div id="toast" class="toast {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div id="profile-status" class="status"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">© 2025 RoadBuddy. All Rights Reserved.</footer>
+  </main>
+
+  <!-- JS: live photo preview -->
+  <script>
+    function previewPhoto(event) {
+      const img = document.getElementById('preview-photo');
+      const file = event.target.files[0];
+      if (!file) {
+        img.hidden = true;
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => {
+        img.src = e.target.result;
+        img.hidden = false;
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+
+  <!-- External JS -->
+  <script src="{{ url_for('static', filename='profile.js') }}"></script>
+</body>
+</html>

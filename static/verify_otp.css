@@ -1,0 +1,69 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.otp-container {
+  background: #111;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+.otp-container h1 {
+  color: #ff6600;
+  margin-bottom: 15px;
+}
+
+.otp-container p {
+  color: #bbb;
+  font-size: 0.95rem;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #444;
+  background: #1c1c1c;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  margin: 15px 0;
+  outline: none;
+}
+
+input:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.6);
+}
+
+button {
+  background: linear-gradient(135deg, #ff6600, #ff9500);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #ff9500, #ffaa33);
+  box-shadow: 0 0 10px rgba(255, 145, 0, 0.7);
+}
+
+#otpMsg {
+  margin-top: 20px;
+  font-weight: 600;
+}

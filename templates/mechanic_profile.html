@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mechanic Profile | RoadBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="brand-header">
+  <div class="brand">ROADBUDDY MECHANIC PROFILE</div>
+  <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+</header>
+
+
+  <main>
+    <section class="page">
+      <h2>Mechanic Profile Setup</h2>
+      <p>Mechanic profile is required for approval. Please fill in your details below.</p>
+
+      <form id="mechanic-profile-form" method="POST" enctype="multipart/form-data" action="{{ url_for('mechanic_profile') }}">
+        <input type="hidden" name="role" value="mechanic">
+
+        <!-- Basic Info -->
+        <div class="row">
+          <label for="name">Name <span class="required">*</span>
+            <input type="text" id="name" name="name" value="{{ mech.name if mech else '' }}" required />
+          </label>
+
+          <label for="phone">Phone <span class="required">*</span>
+            <input type="tel" id="phone" name="phone" value="{{ mech.phone if mech else '' }}" required />
+          </label>
+        </div>
+
+        <div class="row">
+          <label for="aadhaar">Aadhaar Number <span class="required">*</span>
+            <input type="text" id="aadhaar" name="aadhaar" value="{{ mech.aadhaar if mech else '' }}" required />
+          </label>
+
+          <label>
+            Shop Location <span class="required">*</span>
+            <div class="location-wrapper">
+              <input type="text" id="shop" name="shop_location" required placeholder="Detecting your location...">
+              <button type="button" id="detectBtn" class="btn"><i>📍</i> Detect Location</button>
+            </div>
+          </label>
+        </div>
+
+        <!-- File Uploads -->
+        <div class="row">
+          <label for="dl">Driving Licence Photo <span class="required">*</span>
+            <input type="file" id="dl" name="dl_image" accept="image/*" />
+          </label>
+
+          <label for="passport">Passport Size Photo <span class="required">*</span>
+            <input type="file" id="passport" name="passport" accept="image/*" />
+          </label>
+        </div>
+
+        <!-- ✅ Signature Section -->
+        <div class="row">
+          <div class="signature-section">
+            <label for="signature">Signature <span class="required">*</span></label>
+            <input type="file" id="signature" name="signature" accept="image/*" required>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview card small" style="text-align:center;">
+          {% if mech and mech.passport_url %}
+            <img id="preview-passport" class="avatar" src="{{ mech.passport_url }}" alt="Profile Photo">
+          {% else %}
+            <img id="preview-passport" class="avatar" hidden />
+          {% endif %}
+          <div class="meta">
+            <span id="preview-name">{{ mech.name if mech and mech.name else 'Your name' }}</span>
+            <span id="preview-role">Mechanic</span>
+          </div>
+        </div>
+
+        <div class="row buttons" style="justify-content:center; margin-top:20px;">
+          <button type="submit" class="btn primary">Submit for Approval</button>
+          <a href="{{ url_for('index') }}" class="btn ghost">Back to Home</a>
+        </div>
+      </form>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div id="toast" class="toast {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </section>
+
+    <footer class="footer">© 2025 RoadBuddy. All Rights Reserved.</footer>
+  </main>
+
+  <!-- Clean Inline JS -->
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const nameInput = document.getElementById("name");
+    const passportInput = document.getElementById("passport");
+    const passportPreview = document.getElementById("preview-passport");
+    const detectBtn = document.getElementById("detectBtn"); // ✅ Corrected ID
+    const shopField = document.getElementById("shop");
+
+    // Live Name Update
+    if (nameInput) {
+      nameInput.addEventListener("input", () => {
+        document.getElementById("preview-name").textContent = nameInput.value || "Your name";
+      });
+    }
+
+    // Passport Preview
+    if (passportInput) {
+      passportInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          passportPreview.src = URL.createObjectURL(file);
+          passportPreview.hidden = false;
+        } else {
+          passportPreview.hidden = true;
+        }
+      });
+    }
+
+    // 📍 Detect Location Functionality
+    if (detectBtn && shopField) {
+      detectBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        detectBtn.disabled = true;
+        detectBtn.textContent = "Locating...";
+        shopField.value = "Detecting your location...";
+
+        if (!navigator.geolocation) {
+          shopField.value = "❌ Geolocation not supported by browser.";
+          detectBtn.textContent = "📍 Detect Location";
+          detectBtn.disabled = false;
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+              .then(res => res.json())
+              .then(data => {
+                const address = data.display_name || `${lat}, ${lon}`;
+                shopField.value = address;
+                detectBtn.textContent = "📍 Detect Again";
+                detectBtn.disabled = false;
+              })
+              .catch(() => {
+                shopField.value = `${lat}, ${lon}`;
+                detectBtn.textContent = "📍 Detect Again";
+                detectBtn.disabled = false;
+              });
+          },
+          (err) => {
+            if (err.code === 1) {
+              shopField.value = "❌ Permission denied.";
+            } else {
+              shopField.value = "⚠️ Unable to retrieve location.";
+            }
+            detectBtn.textContent = "📍 Detect Location";
+            detectBtn.disabled = false;
+          }
+        );
+      });
+    }
+  });
+  </script>
+</body>
+</html>

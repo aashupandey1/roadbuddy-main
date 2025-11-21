@@ -1,0 +1,26 @@
+<!-- templates/end_service.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>End Service | RoadBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='end_service.css') }}">
+</head>
+<body>
+  <div class="service-container">
+    <h1>🚗 End Service</h1>
+    <p>Click the button below to confirm service completion and show payment QR.</p>
+
+    <button id="endBtn">End Service</button>
+    <div id="qrDisplay" class="qr-box"></div>
+  </div>
+
+  <script>
+    document.getElementById('endBtn').addEventListener('click', async () => {
+      const res = await fetch(`/booking/{{ booking_id }}/end_service`, { method: "POST" });
+      const html = await res.text();
+      document.getElementById('qrDisplay').innerHTML = html;
+    });
+  </script>
+</body>
+</html>

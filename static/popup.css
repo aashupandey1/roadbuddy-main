@@ -1,0 +1,182 @@
+/* ============================================================
+   ROADBUDDY POPUP + OTP STYLES — FIXED & OPTIMIZED (2025)
+   Smooth animations • No click blocking • Mobile Ready
+============================================================ */
+
+/* ---------- Overlay Background ---------- */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9998; /* ✅ behind popup */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+#overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---------- Popup Container ---------- */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%) scale(0.95);
+  background: #0d0d0d;
+  color: #fff;
+  padding: 40px 45px;
+  border-radius: 18px;
+  box-shadow: 0 0 30px rgba(255, 140, 0, 0.7);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 360px;
+  max-width: 90%;
+  z-index: 9999; /* ✅ above overlay */
+  border: 1px solid rgba(255, 165, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.35s ease;
+}
+
+/* ---------- Show State ---------- */
+.popup.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ---------- Headings ---------- */
+.popup h2,
+.popup h3 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #ffa31a;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(255, 165, 0, 0.7);
+}
+
+/* ---------- Input Fields ---------- */
+.popup input {
+  padding: 12px;
+  border: 1px solid rgba(255, 165, 0, 0.4);
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: #fff;
+  width: 90%;
+  text-align: center;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.popup input:focus {
+  border-color: #ffa31a;
+  outline: none;
+  box-shadow: 0 0 10px #ffa31a;
+}
+
+/* ---------- Buttons ---------- */
+.popup button,
+.otp-btn {
+  padding: 12px 26px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff8c00, #ff5500);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  box-shadow: 0 0 10px rgba(255, 140, 0, 0.6);
+}
+
+.popup button:hover,
+.otp-btn:hover {
+  background: linear-gradient(135deg, #ff5500, #ff8c00);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
+}
+
+.popup button:focus-visible,
+.otp-btn:focus-visible {
+  outline: 2px solid #ffa31a;
+  outline-offset: 3px;
+}
+
+/* ---------- Paragraph Text ---------- */
+.popup p {
+  color: #ffa31a;
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ---------- OTP Section ---------- */
+#otpSection,
+#verifyOtpForm {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+/* ---------- Timer Text ---------- */
+#timerText {
+  color: #ffa31a;
+  font-size: 14px;
+  margin-top: 10px;
+  text-shadow: 0 0 4px rgba(255, 165, 0, 0.6);
+}
+
+/* ---------- Mobile Responsive ---------- */
+@media (max-width: 480px) {
+  .popup {
+    width: 90%;
+    padding: 28px 20px;
+    gap: 18px;
+  }
+
+  .popup input {
+    width: 100%;
+  }
+
+  .popup button,
+  .otp-btn {
+    width: 100%;
+  }
+
+  .popup h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* ---------- Background Blur ---------- */
+body.popup-active main,
+body.popup-active header,
+body.popup-active footer {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+body:not(.popup-active) main,
+body:not(.popup-active) header,
+body:not(.popup-active) footer {
+  filter: none;
+  pointer-events: auto;
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | RoadBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">🚗 <span>RoadBuddy</span></div>
+     <nav>
+  <a href="#" class="active" onclick="showSection('dashboard', event)">📊 Dashboard</a>
+  <a href="#" onclick="showSection('mechanics', event)">🧑‍🔧 Mechanics</a>
+  <a href="#" onclick="showSection('bookings', event)">📅 Bookings</a>
+  <a href="#" onclick="showSection('reports', event)">📈 Reports</a>
+  <a href="#" onclick="showSection('settings', event)">⚙️ Settings</a>
+</nav>
+
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Topbar -->
+      <header class="topbar">
+        <h1>Admin Dashboard</h1>
+        <div class="admin-profile">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Admin">
+          <span>Welcome, Admin</span>
+        </div>
+      </header>
+
+      <!-- Dashboard Overview -->
+      <section class="admin-section" id="dashboard">
+        <div class="analytics-cards">
+          <div class="card"><h3>👥 Users</h3><p>{{ total_users }}</p></div>
+          <div class="card"><h3>🧑‍🔧 Mechanics</h3><p>{{ total_mechanics }}</p></div>
+          <div class="card"><h3>✅ Approved</h3><p>{{ approved_mechanics }}</p></div>
+          <div class="card"><h3>⏳ Pending</h3><p>{{ pending_mechanics }}</p></div>
+          <div class="card"><h3>💰 Earnings</h3><p>₹{{ total_earnings }}</p></div>
+          <div class="card"><h3>📅 Bookings</h3><p>{{ total_bookings }}</p></div>
+        </div>
+
+        <!-- Charts -->
+        <section class="charts">
+          <div class="chart-box">
+            <h2>📈 Monthly Bookings</h2>
+            <canvas id="bookingsChart"></canvas>
+          </div>
+          <div class="chart-box">
+            <h2>💸 Monthly Earnings</h2>
+            <canvas id="earningsChart"></canvas>
+          </div>
+          <div class="chart-box">
+            <h2>🧭 Mechanics by Area</h2>
+            <canvas id="areaChart"></canvas>
+          </div>
+        </section>
+
+        <!-- Pending Mechanics -->
+        <h5>🧑‍🔧 Pending Mechanic Requests</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Phone</th>
+              <th>Aadhaar</th>
+              <th>Shop</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if pending_mechanics_list %}
+              {% for row in pending_mechanics_list %}
+              <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.name or row.full_name }}</td>
+                <td>{{ row.phone }}</td>
+                <td>{{ row.aadhaar or row.specialization }}</td>
+                <td>{{ row.shop or row.service_area }}</td>
+                <td>{{ row.status|capitalize if row.status else ('Approved' if row.is_approved else 'Pending') }}</td>
+                <td>
+                  {% if row.status == 'pending' or (row.is_approved == 0) %}
+                    <form action="{{ url_for('admin_approve_submission', submission_id=row.id) }}" method="post" style="display:inline;">
+                      <button type="submit" class="btn btn-success btn-sm">✅ Approve</button>
+                    </form>
+                    <form action="{{ url_for('admin_reject_submission', submission_id=row.id) }}" method="post" style="display:inline;">
+                      <button type="submit" class="btn btn-danger btn-sm">❌ Reject</button>
+                    </form>
+                  {% else %}
+                    <span class="badge bg-secondary">{{ row.status|capitalize }}</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+              <tr><td colspan="7" class="text-center text-muted">No pending requests.</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+
+        <!-- Recent Bookings -->
+        <section class="data-section">
+          <div class="table-card">
+            <h2>🕓 Recent Bookings</h2>
+            {% if recent_bookings %}
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th><th>User</th><th>Mechanic</th><th>Date</th><th>Status</th><th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for b in recent_bookings %}
+                <tr>
+                  <td>{{ b.id }}</td>
+                  <td>{{ b.user_name }}</td>
+                  <td>{{ b.mechanic_name }}</td>
+                  <td>{{ b.created_at.strftime('%Y-%m-%d') }}</td>
+                  <td><span class="status {{ b.booking_status }}">{{ b.booking_status }}</span></td>
+                  <td>₹{{ b.amount }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">No recent bookings found.</p>
+            {% endif %}
+          </div>
+        </section>
+      </section>
+
+      <!-- Mechanics -->
+      <section id="mechanics" class="admin-section" style="display:none;">
+        <h2>🧑‍🔧 Mechanics Overview</h2>
+
+        <div class="mech-summary">
+          <div class="mech-card total"><h3>👥 Total Mechanics</h3><p>{{ total_mechanics }}</p></div>
+          <div class="mech-card approved"><h3>✅ Approved</h3><p>{{ approved_mechanics }}</p></div>
+          <div class="mech-card pending"><h3>🕒 Pending</h3><p>{{ pending_mechanics }}</p></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mech-progress">
+          <label>Approval Progress</label>
+          {% if total_mechanics and total_mechanics > 0 %}
+            {% set progress_percent = (approved_mechanics * 100 / total_mechanics) | round(1) %}
+          {% else %}
+            {% set progress_percent = 0 %}
+          {% endif %}
+          <div class="progress-bar">
+            <div class="progress" data-progress="{{ progress_percent }}">{{ progress_percent }}%</div>
+          </div>
+        </div>
+
+        <!-- Mechanics Table -->
+        <div class="mech-table-container">
+          <h3>🔧 Mechanics List</h3>
+          {% if pending_mechanics_list and pending_mechanics_list|length > 0 %}
+          <table class="mech-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Specialization</th>
+                <th>Area</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in pending_mechanics_list %}
+              <tr>
+                <td>{{ m.id }}</td>
+                <td>{{ m.full_name or m.name }}</td>
+                <td>{{ m.phone }}</td>
+                <td>{{ m.specialization or m.aadhaar }}</td>
+                <td>{{ m.service_area or m.shop }}</td>
+                <td>{% if m.is_approved == 1 %}<span class="status approved">Approved</span>{% else %}<span class="status pending">Pending</span>{% endif %}</td>
+                <td>
+                  <form method="POST" action="{{ url_for('admin_approve_submission', submission_id=m.id) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-approve">✅ Approve</button>
+                  </form>
+                  <form method="POST" action="{{ url_for('admin_reject_submission', submission_id=m.id) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-reject">❌ Reject</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="no-data">No mechanics available currently.</p>
+          {% endif %}
+        </div>
+      </section>
+
+      <!-- Bookings -->
+      <section id="bookings" class="admin-section" style="display:none;">
+        <h2>All Bookings</h2>
+        <table>
+          <tr><th>ID</th><th>Name</th><th>Phone</th><th>Problem</th><th>Status</th></tr>
+          {% for b in bookings_data %}
+          <tr>
+            <td>{{ b.id }}</td>
+            <td>{{ b.fullname }}</td>
+            <td>{{ b.phone }}</td>
+            <td>{{ b.problem }}</td>
+            <td>{{ b.booking_status }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </section>
+
+      <!-- Reports -->
+      <section id="reports" class="admin-section" style="display:none;">
+        <h2>Reports</h2>
+        <p>Coming soon...</p>
+      </section>
+
+      <!-- Settings -->
+      <section id="settings" class="admin-section" style="display:none;">
+        <h2>⚙️ Settings</h2>
+        <div class="settings-card">
+          <form class="settings-form">
+            <div class="form-group">
+              <label>Admin Email</label>
+              <input type="email" value="admin@roadbuddy.com" />
+            </div>
+            <div class="form-group">
+              <label>Notification Radius (KM)</label>
+              <input type="number" value="5" />
+            </div>
+            <div class="form-group toggle-group">
+              <label>Dark Mode</label>
+              <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-save">💾 Save Changes</button>
+              <a href="/logout" class="btn-logout">🚪 Logout</a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='admin_dashboard.js') }}"></script>
+  <script>
+  // Sidebar section toggle (fixed)
+  function showSection(id, event) {
+    // Hide all sections
+    document.querySelectorAll('.admin-section').forEach(sec => sec.style.display = 'none');
+
+    // Show the selected one
+    const target = document.getElementById(id);
+    if (target) target.style.display = 'block';
+
+    // Remove "active" from all sidebar links
+    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+
+    // Highlight the clicked link
+    if (event && event.target) {
+      event.target.classList.add('active');
+    }
+  }
+
+  // Ensure Dashboard is visible on first load
+  document.addEventListener("DOMContentLoaded", () => {
+    showSection('dashboard');
+  });
+</script>
+
+</body>
+</html>

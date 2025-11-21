@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile | RoadBuddy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body>
+  <header class="brand">ROADBUDDY USER PROFILE</header>
+
+  <main>
+    <section class="page">
+      <h2>PROFILE DETAILS</h2>
+
+      <div class="preview card">
+        {% if user and user.photo_url %}
+          <img src="{{ user.photo_url }}" class="avatar" alt="Profile Photo">
+        {% else %}
+          <img src="{{ url_for('static', filename='images/default_user.png') }}" class="avatar" alt="Profile Photo">
+        {% endif %}
+        <div class="meta">
+          <strong>{{ user.name if user and user.name else 'Unnamed User' }}</strong>
+          <span>{{ user.email if user and user.email else '' }}</span>
+        </div>
+      </div>
+
+      <div class="details">
+        <p><strong>Date of Birth:</strong> {{ user.dob if user and user.dob else '—' }}</p>
+        <p><strong>Phone:</strong> {{ user.phone if user and user.phone else '—' }}</p>
+        <p><strong>Address:</strong> {{ user.address if user and user.address else '—' }}</p>
+        <p><strong>Car Model:</strong> {{ user.car_model if user and user.car_model else '—' }}</p>
+      </div>
+
+      <div class="row buttons">
+        <a href="{{ url_for('user_profile') }}?edit=true" class="btn primary">Edit Profile</a>
+        <a href="{{ url_for('index') }}" class="btn ghost">Back to Home</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

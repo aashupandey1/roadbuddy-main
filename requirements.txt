@@ -1,0 +1,7 @@
+Flask==2.3.2
+mysql-connector-python
+gunicorn==21.2.0
+requests
+python-dotenv
+qrcode
+pillow

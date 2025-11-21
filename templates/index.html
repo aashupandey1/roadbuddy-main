@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Road Buddy - Auto Maintenance & Repair</title>
+
+  <!-- Existing CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='login_styles.css') }}"> 
+
+  <!-- ✅ New Popup CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='popup.css') }}"> 
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ✅ USER / MECHANIC SELECTION POPUP -->
+  <!-- ✅ OVERLAY -->
+<div id="overlay"></div>
+
+<!-- ✅ USER / MECHANIC SELECTION POPUP -->
+<div id="rolePopup" class="popup">
+  <h2>WHO ARE YOU?</h2>
+  <button id="userBtn" type="button">USER</button>
+  <button id="mechanicBtn" type="button">MECHANIC</button>
+</div>
+
+<!-- ✅ EMAIL + OTP POPUP -->
+<div id="otpPopup" class="popup">
+  <h3 id="roleTitle">LOGIN AS USER</h3>
+
+  <div id="otpForm">
+    <input type="email" id="emailInput" placeholder="Enter your email" required>
+    <br><br>
+    <button type="button" id="getOtpBtn">Get OTP</button>
+  </div>
+
+  <form id="verifyOtpForm" style="display:none;">
+    <input type="text" id="otpInput" maxlength="6" placeholder="Enter OTP" required>
+    <br>
+    <button type="submit" class="otp-btn" id="verifyOtpBtn">Verify OTP</button>
+  </form>
+</div>
+
+
+  <!-- EXISTING PAGE CONTENT -->
+ <nav class="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-white">Road</span><span class="logo-orange">Buddy</span>
+    </a>
+<div class="nav-center">
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+
+    <!-- Dropdown -->
+    <li class="dropdown">
+      <a href="#">Book Mechanic</a>
+      <ul class="dropdown-content">
+        <li><a href="{{ url_for('book_mechanic') }}">Emergency Booking</a></li>
+        <li><a href="{{ url_for('book_schedule') }}">Scheduled Booking</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#About">About</a></li>
+    <li><a href="#service">Services</a></li>
+    <li><a href="#contact">Contacts</a></li>
+  </ul>
+</div>
+
+
+    <div class="nav-right">
+      <a href="{{ url_for('ev_chargers') }}" class="ev-btn">EV Chargers</a>
+      <a href="/profile" class="profile-icon">
+        {% if session.get('photo_url') %}
+          <img src="{{ session['photo_url'] }}" alt="Profile" class="nav-avatar">
+        {% else %}
+          <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile" class="nav-avatar">
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Chatbot Button -->
+<div id="chatbot-btn">💬</div>
+
+<!-- Chatbot Popup -->
+<div id="chatbot-popup">
+  <div id="chat-output"></div>
+  <div id="chat-input-area">
+    <input id="chat-input" type="text" placeholder="Type message..." />
+    <button id="send-btn">Send</button>
+  </div>
+</div>
+
+    <main>
+
+        <section class="hero" id="home">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>AUTO MAINTENANCE & REPAIR SERVICES</h1>
+                    <p>Keep your vehicle running smoothly with expert maintenance, quick diagnostics, and reliable repair services — all under one roof.</p>
+            
+                    <!-- ✅ GET SERVICE BUTTON -->
+<a href="#" class="btn" id="getServiceBtn">GET SERVICES</a>
+
+<!-- ✅ Hidden Service Form Modal -->
+<div id="serviceModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h2>Book Your Service</h2>
+    <form id="serviceForm">
+      <label>Name:</label>
+      <input type="text" name="name" required placeholder="Enter your name here">
+
+      <label>Vehicle Type:</label>
+      <input type="text" name="vehicle" required placeholder="bike / car / etc..">
+
+      <label>Service Type:</label>
+      <select name="service_type" required>
+        <option value="Brake Repair">Brake Repair</option>
+        <option value="Engine Repair">Engine Repair</option>
+        <option value="Tire Replacement">Tire Replacement</option>
+        <option value="Battery Service">Battery Service</option>
+      </select>
+
+      <label>Date:</label>
+      <input type="date" name="date" required>
+
+      <label>Time:</label>
+      <input type="time" name="time" required>
+
+      <label>Amount (₹):</label>
+      <input type="number" name="amount" min="100" value="500" required>
+
+      <button type="submit" class="btn">Proceed to Payment</button>
+    </form>
+
+    <!-- ✅ Fake Payment Section (hidden initially) -->
+    <div id="paymentSection" style="display:none;">
+      <h3>Fake Payment Gateway</h3>
+      <p id="paymentDetails"></p>
+      <button id="payNowBtn" class="btn">Pay Now</button>
+    </div>
+
+    <!-- ✅ Receipt Section -->
+    <div id="receiptSection" style="display:none;">
+      <h3>Payment Receipt</h3>
+      <p id="receiptText"></p>
+      <button class="btn" id="closeReceipt">Close</button>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <div class="hero-image">
+                    </div>
+            </div>
+        </section>
+
+        
+        <section class="stats">
+            <div class="container stats-grid">
+                <div class="stat-item">
+                    <h2>8K+</h2>
+                    <p>Vehicle Repaired</p>
+                </div>
+                <div class="stat-item">
+                    <h2>22+</h2>
+                    <p>Years of Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h2>500+</h2>
+                    <p>Happy Clients</p>
+                </div>
+                <div class="stat-item">
+                    <h2>99%</h2>
+                    <p>Client Satisfaction</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="service">
+    <div class="container">
+      <div class="section-header">
+        <h2>OUR SERVICES</h2>
+        <a href="#" class="btn btn-secondary">ALL SERVICES</a>
+      </div>
+
+      <div class="service-grid">
+        <div class="service-item">
+          <h3>BRAKE REPAIR</h3>
+          <p>Smooth, safe braking with expert repair and replacement.</p>
+          <a href="#" class="details-link" data-service="brake">DETAILS SERVICE</a>
+        </div>
+
+        <div class="service-item">
+          <h3>ENGINE REPAIR</h3>
+          <p>Keep your engine powerful, efficient, and reliable.</p>
+          <a href="#" class="details-link" data-service="engine">DETAILS SERVICE</a>
+        </div>
+
+        <div class="service-item">
+          <h3>TIRE REPAIR</h3>
+          <p>Quick tire fixes and replacements for safer rides.</p>
+          <a href="#" class="details-link" data-service="tire">DETAILS SERVICE</a>
+        </div>
+
+        <div class="service-item">
+          <h3>COOLING SYSTEM</h3>
+          <p>Stop overheating with professional cooling care.</p>
+          <a href="#" class="details-link" data-service="cooling">DETAILS SERVICE</a>
+        </div>
+
+        <div class="service-item">
+          <h3>BATTERY REPAIR</h3>
+          <p>Reliable battery checks and fast replacements.</p>
+          <a href="#" class="details-link" data-service="battery">DETAILS SERVICE</a>
+        </div>
+
+        <div class="service-item">
+          <h3>STEERING REPAIR</h3>
+          <p>Smooth steering and control with expert service.</p>
+          <a href="#" class="details-link" data-service="steering">DETAILS SERVICE</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Section -->
+  <div id="service-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal">&times;</span>
+      <h3 id="modal-title"></h3>
+      <p id="modal-text"></p>
+    </div>
+  </div>
+        
+        <section class="maintenance">
+            <div class="container">
+                <h2>MAINTENANCE & REPAIR</h2>
+                 <div class="maintenance-content">
+                    <div class="maintenance-media">   
+                        <iframe 
+                            src="https://www.youtube.com/embed/PUkAIAIzA0I" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        
+        <section class="pricing">
+            <div class="container pricing-content">
+                
+                <div class="pricing-text">
+                    <h2>AFFORDABLE PRICING PLANS</h2>
+                    <p>Simple and transparent pricing — no hidden costs. Pick the plan that works best for your car and your wallet.</p>
+                </div>
+                
+                <div class="pricing-grid-2">
+                    <div class="pricing-plan">
+                        <h3>PERSONAL</h3>
+                        <p class="price">₹3000</p>
+                        <p class="per-month">per month</p>
+                        <ul>
+                            <li>Basic maintenance vehicle checkups</li>
+                            <li>Engine oil and filter change</li>
+                            <li>Brake inspection</li>
+                            <li class="disabled">Free pickup & drop service</li>
+                            <li class="disabled">Priority emergency support</li>
+                        </ul>
+                       <a href="#" class="btn btn-primary pricing-start" data-plan="Personal" data-amount="3000">GET STARTED</a>
+                    </div>
+                    
+                    <div class="pricing-plan featured">
+                        <h3>PROFESSIONAL</h3>
+                        <p class="price">₹5000</p>
+                        <p class="per-month">per month</p>
+                        <ul>
+                            <li>Complete maintenance package</li>
+                            <li>Priority support</li>
+                            <li>Brake inspection</li>
+                            <li>Free pickup & drop service</li>
+                            <li>24×7 roadside assistance</li>
+                        </ul>
+                      <a href="#" class="btn btn-primary pricing-start" data-plan="Professional" data-amount="5000">GET STARTED</a>
+                    </div>
+                </div>
+                <!-- Booking & Fake Payment Modal -->
+<div id="bookingModal" class="rb-modal" aria-hidden="true" role="dialog" aria-labelledby="bookingTitle">
+  <div class="rb-modal-content">
+    <button class="rb-close" id="bookingClose" aria-label="Close">&times;</button>
+
+    <!-- Step 1: Booking Form -->
+    <div id="bookingStep" class="rb-step">
+      <h2 id="bookingTitle">Book: <span id="planName">Plan</span></h2>
+
+      <form id="bookingForm">
+        <input type="hidden" name="plan" id="planInput">
+        <input type="hidden" name="amount" id="amountInput">
+
+        <label>Name</label>
+        <input type="text" name="name" id="custName" required placeholder="Enter your name">
+
+        <label>Phone</label>
+        <input type="text" name="phone" id="custPhone" required placeholder="+91xxxxxxxxxx">
+
+        <label>Address</label>
+        <input type="text" name="address" id="custAddress" required placeholder="Your address">
+
+        <label>Car Model</label>
+        <input type="text" name="car_model" id="custCar" required placeholder="eg. TOYOTA ">
+
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1">
+            <label>Date</label>
+            <input type="date" name="date" id="custDate" required>
+          </div>
+          <div style="flex:1">
+            <label>Time</label>
+            <input type="time" name="time" id="custTime" required>
+          </div>
+        </div>
+
+        <label>Amount (₹)</label>
+        <input type="number" name="amount_display" id="amountDisplay" readonly>
+
+        <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+      </form>
+    </div>
+
+    <!-- Step 2: Payment Options -->
+    <div id="paymentStep" class="rb-step" style="display:none;">
+      <h2>Payment</h2>
+      <p id="paySummary"></p>
+
+      <label>Select Payment Method</label>
+      <select id="paymentMethod">
+        <option value="UPI">UPI</option>
+        <option value="Card">Card</option>
+        <option value="Netbanking">Netbanking</option>
+      </select>
+
+     <div style="margin-top:16px;">
+  <button type="button" id="payNowBtn" class="btn btn-primary">Pay Now</button>
+  <button id="backToForm" class="btn" style="margin-left:10px;">Back</button>
+</div>
+
+      <p class="rb-note">This is a demo payment — no real transaction will occur.</p>
+    </div>
+<!-- Fake Receipt Modal -->
+<div class="rb-modal" id="receiptModal" aria-hidden="true">
+  <div class="rb-modal-content">
+    <button class="rb-close" id="closeReceipt">&times;</button>
+    <div id="receiptMessage" class="receipt-content"></div>
+  </div>
+</div>
+
+    <!-- Step 3: Receipt & Welcome -->
+    <div id="receiptStep" class="rb-step" style="display:none;">
+      <h2>Payment Receipt</h2>
+      <div id="receiptContent" class="receipt-content"></div>
+      <p class="welcome-msg" id="welcomeMsg"></p>
+      <div style="margin-top:14px;">
+        <button id="closeReceiptBtn" class="btn btn-primary">Done</button>
+        <button id="printReceiptBtn" class="btn" style="margin-left:10px;">Print Receipt</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+            </div>
+        </section>
+
+        
+        <section class="feature-section layout-reversed" id="About">
+            <div class="container feature-content">
+                <div class="feature-image">
+                    </div>
+                <div class="feature-text">
+                    <h2>CAR EXTERIOR CLEANING: BASIC DETAILING</h2>
+                    <ul>
+                        <li>Same Day Service</li>
+                        <li>Online Appointment</li>
+                        <li>Convenient Location</li>
+                        <li>Hassle-Free Visit</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">GET STARTED </a>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="feature-section">
+            <div class="container feature-content">
+                <div class="feature-text">
+                    <h2>RUBBING, WAXING, and POLISHING</h2>
+                    <p>Bring back your car’s showroom shine with our expert rubbing, waxing, and polishing service. Removes scratches, restores gloss, and protects your paint.</p>
+                    <br>
+                    <p>Restore the perfect shine — remove scratches, enhance gloss, and protect your car’s paint for a lasting finish</p>
+                    <br>
+                    <a href="#" class="btn btn-primary">GET SERVICES</a>
+                </div>
+                <div class="feature-image">
+                    </div>
+            </div>
+        </section>
+
+        
+        <section class="how-to">
+            <div class="container how-to-content">
+                <div class="how-to-text">
+                    <h2>HOW TO SERVICE YOUR CAR</h2>
+                    <p>Regular car service ensure your vehicle runs smoothly,safely,and efficiently.</p>
+                </div>
+                <div class="how-to-grid">
+                    <div class="step">
+                        <span>01</span>
+                        <h3>MAKE AN APPOINTMENT</h3>
+                        <p>Book your slot online in seconds.</p>
+                    </div>
+                    <div class="step">
+                        <span>02</span>
+                        <h3>SELECT SERVICE</h3>
+                        <p>Choose the service your car needs.</p>
+                    </div>
+                    <div class="step">
+                        <span>03</span>
+                        <h3>CONFIRM REQUEST</h3>
+                        <p>Review and Confirm your booking.</p>
+                    </div>
+                    <div class="step">
+                        <span>04</span>
+                        <h3>GET YOUR CAR</h3>
+                        <p>Pick up your car-fresh and ready.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="articles">
+            <div class="container">
+                <h2>Popular Articles</h2>
+                
+                <div class="articles-grid"> 
+                    
+                    <div class="article-card main-article">
+                        <div class="article-image" id="article-img-1"></div> <div class="article-content"> <span class="category">Car Advice</span>
+                            <h3>Signs your car battery has to be replaced</h3>
+                            <span class="meta">May 29, 2025 • No Comments</span>
+                              <a href="https://www.google.com/search?q=signs+your+car+battery+has+to+be+replaced" 
+       target="_blank" 
+       class="read-more">READ MORE</a>
+                        </div>
+                    </div>
+                    
+                    <div class="bottom-articles-grid">
+                        <div class="article-card">
+                            <div class="article-image" id="article-img-2"></div> <div class="article-content"> <span class="category">Car Advice</span>
+                                <h3>How to protect the interior of your car</h3>
+                                <span class="meta">May 29, 2025 • No Comments</span>
+                                <a href="https://www.take5carwashes.com/blog/how-to-keep-your-cars-interior-clean-12-simple-steps/" target="_blank" class="read-more">READ MORE</a>
+                                <!-- <a href="#" class="read-more">Read More</a> -->
+                            </div>
+                        </div>
+                        <div class="article-card">
+                             <div class="article-image" id="article-img-3"></div> <div class="article-content"> <span class="category">Car Advice</span>
+                                <h3>Is your car's check engine light flashing?</h3>
+                                <span class="meta">May 29, 2025 • No Comments</span>
+                                <a href="https://www.stpaul.porschedealer.com/why-is-my-check-engine-light-flashing/" target="_blank" class="read-more">READ MORE</a>
+                                <!-- <a href="#" class="read-more">Read More</a> -->
+                            </div>
+                        </div>
+                        <div class="article-card">
+                             <div class="article-image" id="article-img-4"></div> <div class="article-content"> <span class="category">Car Advice</span>
+                                <h3>5 must-have things in your car for safety</h3>
+                                <span class="meta">May 29, 2025 • No Comments</span>
+                                <a href="https://www.sbigeneral.in/blog/motor-insurance/motor-articles/items-you-should-include-in-your-car-emergency-kit" target="_blank" class="read-more">READ MORE</a>
+                                <!-- <a href="#" class="read-more">Read More</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="appointment" id="contact">
+            <div class="container">
+                
+                <div class="appointment-header">
+                    <h2>REQUEST AN APPOINTMENT ONLINE</h2>
+                    <p>Yahaan par appointment form ke baare mein chota sa description aayega. Duis aute irure dolor...</p>
+                </div>
+                
+                <form action="/book-appointment" method="POST" class="appointment-form">
+                    
+                    <div class="form-group">
+                        <label for="name">YOUR NAME</label>
+                        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">YOUR PHONE</label>
+                        <input type="text" id="phone" name="phone" placeholder="Enter Your Phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">SELECT DATE</label>
+                        <input type="date" id="date" name="date"> </div>
+                    <div class="form-group">
+                        <label for="time">SELECT TIME</label>
+                        <input type="time" id="time" name="time"> </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="message">YOUR MESSAGE</label>
+                        <textarea id="message" name="message" placeholder="Describe Your Problem"></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">SEND MESSAGE</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+   <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="footer-logo">ROADBUDDY</h3> 
+        <p>Expert car care you can trust — anytime, anywhere.</p>
+        <p class="footer-contact">
+          Support center 24/7 <br><br>
+          <strong id="num">+91 88103 76847</strong>
+        </p>
+      </div>
+            </section>
+            <div class="footer-col">
+                <h3>ABOUT US</h3>
+                <ul class="footer-links">
+                    <li><a href="#">ABOUT US</a></li>
+                    <li><a href="#">OUR TEAM</a></li>
+                    <li><a href="#">OUR WORKS</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col services-col">
+                <h3>POPULAR SERVICES</h3>
+                <ul class="service-list">
+                    <li><a href="#">TIRE REPAIR</a></li>
+                    <li><a href="#">BRAKE REPAIR</a></li>
+                    <li><a href="#">ENGINE REPAIR</a></li>
+                    <li><a href="#">CHARGING REPAIR</a></li>
+                    <li><a href="#">COOLING SYSTEM</a></li>
+                    <li><a href="#">WHEEL ALIGNMENT</a></li>
+                    <li><a href="#">BATTERY STARTING</a></li>
+                    <li><a href="#">SUSPENSION REPAIR</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>SUBSCRIBE</h3>
+                <p>YOUR EMAIL</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter Your Email Address">
+                    <button type="submit" class="btn btn-primary">SUBSCRIBE</button> </form>
+            </div>
+
+        </div>
+        
+    </footer>
+<!-- ✅ Firebase v10 (COMPAT mode for non-module use) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+
+<script>
+  // ✅ Your Firebase config (replace this with NEW project config if using test OTPs)
+  const firebaseConfig = {
+    apiKey: "AIzaSyD5hWEk8i31sAOw_5TTIHqBoZZfEAyMiRA",
+    authDomain: "roadbuddy-cbe40.firebaseapp.com",
+    projectId: "roadbuddy-cbe40",
+    storageBucket: "roadbuddy-cbe40.appspot.com",  // ✅ FIXED
+    messagingSenderId: "603449968931",
+    appId: "1:603449968931:web:8628eecefab1ee11cb6496",
+    measurementId: "G-VL06G7SV2X"
+  };
+
+  // ✅ Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  console.log("✅ Firebase initialized successfully!");
+
+  // Initialize Recaptcha (important!)
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+    size: 'invisible'
+  });
+</script>
+
+<!-- ✅ Your Scripts -->
+<script src="{{ url_for('static', filename='popup.js') }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+    </body>
+</html>

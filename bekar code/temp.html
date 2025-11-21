@@ -1,0 +1,53 @@
+<!-- ✅ Hidden Service Form Modal -->
+<div id="serviceModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h2>Book Your Service</h2>
+    <form id="serviceForm">
+      <label>Name:</label>
+      <input type="text" name="name" required placeholder="Enter your name here">
+
+      <label>Vehicle Type:</label>
+      <input type="text" name="vehicle" required placeholder="bike / car / etc..">
+
+      <label>Service Type:</label>
+      <select name="service_type" required>
+        <option value="Brake Repair">Brake Repair</option>
+        <option value="Engine Repair">Engine Repair</option>
+        <option value="Tire Replacement">Tire Replacement</option>
+        <option value="Battery Service">Battery Service</option>
+      </select>
+
+      <label>Date:</label>
+      <input type="date" name="date" required>
+
+      <label>Time:</label>
+      <input type="time" name="time" required>
+
+      <label>Amount (₹):</label>
+      <input type="number" name="amount" min="100" value="500" required>
+
+      <button type="submit" class="btn">Proceed to Payment</button>
+    </form>
+
+    <!-- ✅ Fake Payment Section (hidden initially) -->
+    <div id="paymentSection" style="display:none;">
+      <h3>Fake Payment Gateway</h3>
+      <p id="paymentDetails"></p>
+      <button id="payNowBtn" class="btn">Pay Now</button>
+    </div>
+
+    <!-- ✅ Receipt Section -->
+    <div id="receiptSection" style="display:none;">
+      <h3>Payment Receipt</h3>
+      <p id="receiptText"></p>
+      <button class="btn" id="closeReceipt">Close</button>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <div class="hero-image">
+                    </div>
+            </div>
+        </section>
