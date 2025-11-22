@@ -1,3 +1,4 @@
+/* ======= ROADBUDDY END SERVICE ======= */
 body {
   background-color: #000;
   color: #fff;
@@ -5,44 +6,87 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  box-sizing: border-box;
 }
 
 .service-container {
   background: #111;
-  padding: 40px 50px;
-  border-radius: 12px;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.75rem, 4vw, 3.125rem);
+  border-radius: clamp(8px, 1.5vw, 12px);
   box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);
   text-align: center;
-  width: 90%;
-  max-width: 480px;
+  width: 100%;
+  max-width: clamp(300px, 90vw, 480px);
+  box-sizing: border-box;
 }
 
 .service-container h1 {
   color: #ff6600;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  margin-bottom: clamp(1rem, 2.5vw, 1.25rem);
 }
 
 button {
   background: linear-gradient(135deg, #ff6600, #ff9500);
   border: none;
   color: #fff;
-  padding: 12px 35px;
-  border-radius: 8px;
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.75rem, 4vw, 2.1875rem);
+  border-radius: clamp(6px, 1.5vw, 8px);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   font-weight: 600;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 button:hover {
   background: linear-gradient(135deg, #ff8c1a, #ffaa33);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.4);
 }
 
 .qr-box {
-  margin-top: 25px;
+  margin-top: clamp(1rem, 2.5vw, 1.5625rem);
   background: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
+  padding: clamp(1rem, 2.5vw, 1.25rem);
+  border-radius: clamp(8px, 1.5vw, 10px);
   border: 1px solid #333;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.qr-box img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ======= RESPONSIVE DESIGN ======= */
+
+/* Mobile: max-width 480px */
+@media (max-width: 480px) {
+  body {
+    padding: clamp(0.75rem, 2vw, 1rem);
+  }
+
+  .service-container {
+    padding: clamp(1.25rem, 3vw, 1.5rem) clamp(1.25rem, 3vw, 1.5rem);
+  }
+}
+
+/* Tablet & Desktop: 481px+ */
+@media (min-width: 481px) {
+  button {
+    width: auto;
+    min-width: 200px;
+    max-width: 300px;
+  }
 }

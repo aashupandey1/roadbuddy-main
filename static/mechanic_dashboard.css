@@ -1,5 +1,85 @@
-body { font-family: Arial; background: #eef2f6; color: #222; }
-.dash { max-width: 500px; margin: 40px auto; background: white; padding: 20px; border-radius: 10px; }
-#notification { border: 2px solid #ccc; padding: 10px; border-radius: 8px; margin-top: 20px; background: #fffbf2; }
-button { margin: 5px; padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
-#declineBtn { background: #dc3545; }
+/* ======= ROADBUDDY MECHANIC DASHBOARD ======= */
+body { 
+  font-family: "Poppins", Arial, sans-serif; 
+  background: #eef2f6; 
+  color: #222; 
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.dash { 
+  max-width: clamp(300px, 90vw, 500px); 
+  margin: clamp(1.5rem, 4vw, 2.5rem) auto; 
+  background: white; 
+  padding: clamp(1rem, 3vw, 1.25rem); 
+  border-radius: clamp(8px, 1.5vw, 10px); 
+  box-sizing: border-box;
+  width: calc(100% - 2rem);
+}
+
+#notification { 
+  border: 2px solid #ccc; 
+  padding: clamp(0.625rem, 2vw, 0.75rem); 
+  border-radius: clamp(6px, 1.5vw, 8px); 
+  margin-top: clamp(1rem, 2.5vw, 1.25rem); 
+  background: #fffbf2; 
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  line-height: 1.6;
+}
+
+button { 
+  margin: clamp(0.25rem, 1vw, 0.3125rem); 
+  padding: clamp(0.625rem, 2vw, 0.75rem) clamp(0.875rem, 2vw, 0.9375rem); 
+  background: #28a745; 
+  color: white; 
+  border: none; 
+  border-radius: clamp(4px, 1vw, 5px); 
+  cursor: pointer; 
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#declineBtn { 
+  background: #dc3545; 
+}
+
+#declineBtn:hover {
+  background: #c82333;
+}
+
+/* ======= RESPONSIVE DESIGN ======= */
+
+/* Mobile: max-width 480px */
+@media (max-width: 480px) {
+  .dash {
+    width: calc(100% - 1rem);
+    margin: clamp(1rem, 3vw, 1.5rem) auto;
+    padding: clamp(0.875rem, 2.5vw, 1rem);
+  }
+
+  button {
+    width: 100%;
+    margin: clamp(0.5rem, 1.5vw, 0.625rem) 0;
+  }
+}
+
+/* Tablet & Desktop: 481px+ */
+@media (min-width: 481px) {
+  button {
+    width: auto;
+    min-width: 120px;
+    max-width: 200px;
+  }
+}

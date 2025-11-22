@@ -1,3 +1,4 @@
+/* ======= ROADBUDDY VERIFY OTP ======= */
 body {
   font-family: "Poppins", sans-serif;
   background-color: #000;
@@ -5,40 +6,46 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  box-sizing: border-box;
 }
 
 .otp-container {
   background: #111;
-  padding: 40px 50px;
-  border-radius: 12px;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.75rem, 4vw, 3.125rem);
+  border-radius: clamp(8px, 1.5vw, 12px);
   box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
   text-align: center;
-  width: 90%;
-  max-width: 400px;
+  width: 100%;
+  max-width: clamp(300px, 90vw, 400px);
+  box-sizing: border-box;
 }
 
 .otp-container h1 {
   color: #ff6600;
-  margin-bottom: 15px;
+  margin-bottom: clamp(0.75rem, 2vw, 0.9375rem);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
 }
 
 .otp-container p {
   color: #bbb;
-  font-size: 0.95rem;
+  font-size: clamp(0.875rem, 2vw, 0.95rem);
+  line-height: 1.6;
 }
 
 input {
-  padding: 12px;
+  padding: clamp(0.75rem, 2vw, 0.875rem);
   border: 1px solid #444;
   background: #1c1c1c;
   color: #fff;
-  border-radius: 6px;
-  font-size: 1rem;
+  border-radius: clamp(4px, 1vw, 6px);
+  font-size: clamp(0.875rem, 2vw, 1rem);
   width: 100%;
-  margin: 15px 0;
+  margin: clamp(0.75rem, 2vw, 0.9375rem) 0;
   outline: none;
+  box-sizing: border-box;
 }
 
 input:focus {
@@ -50,12 +57,15 @@ button {
   background: linear-gradient(135deg, #ff6600, #ff9500);
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 12px 30px;
+  border-radius: clamp(6px, 1.5vw, 8px);
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.5rem, 4vw, 1.875rem);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   font-weight: 600;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 button:hover {
@@ -64,6 +74,29 @@ button:hover {
 }
 
 #otpMsg {
-  margin-top: 20px;
+  margin-top: clamp(1rem, 2.5vw, 1.25rem);
   font-weight: 600;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+/* ======= RESPONSIVE DESIGN ======= */
+
+/* Mobile: max-width 480px */
+@media (max-width: 480px) {
+  body {
+    padding: clamp(0.75rem, 2vw, 1rem);
+  }
+
+  .otp-container {
+    padding: clamp(1.25rem, 3vw, 1.5rem) clamp(1.25rem, 3vw, 1.5rem);
+  }
+}
+
+/* Tablet & Desktop: 481px+ */
+@media (min-width: 481px) {
+  button {
+    width: auto;
+    min-width: 200px;
+    max-width: 300px;
+  }
 }

@@ -1,87 +1,145 @@
-/* ======== 01. GLOBAL RESET & DEFAULTS ======== */
+/* ============================================================
+   ROADBUDDY - FULLY RESPONSIVE STYLESHEET
+   Mobile-First Approach | Clean & Organized
+   =========================================================== */
 
-/* Universal selector (*) sab elements ko select karta hai */
+/* ========== 01. CSS VARIABLES & GLOBAL RESET ========== */
+:root {
+    --color-primary: #e87a27;
+    --color-darker: #0d0d0d;
+    --color-light: #ffffff;
+    --color-grey: #aaaaaa;
+    --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --spacing-sm: clamp(0.75rem, 1.5vw, 1rem);
+    --spacing-md: clamp(1rem, 2vw, 1.5rem);
+    --spacing-lg: clamp(1.5rem, 3vw, 2.5rem);
+    --spacing-xl: clamp(2rem, 4vw, 4rem);
+}
+
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Yeh layout ke liye bahut important hai */
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif; /* Aap koi aur font bhi choose kar sakte hain */
-    background-color: #121212; /* Yeh hai woh dark grey background */
-    color: #aaaaaa; /* Plain text ke liye light grey color */
-    line-height: 1.6; /* Lines ke beech mein thodi spacing */
+    font-family: 'Poppins', 'Montserrat', sans-serif;
+    background-color: #121212;
+    color: var(--color-grey);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* Orange color ko ek variable mein save kar rahe hain */
-:root {
-    --color-primary: #e87a27;  /* Yeh hai hamara main Orange color */
-    --color-darker: #0d0d0d;   /* Background se thoda dark (cards ke liye) */
-    --color-light: #ffffff;   /* Bilkul white text (headings ke liye) */
-    --color-grey: #aaaaaa;   /* Paragraph text */
-}
-
-/* ======== 02. HEADINGS & LINKS ======== */
-
-/* Saare headings ko uppercase aur white kar rahe hain */
+/* ========== 02. RESPONSIVE TYPOGRAPHY (clamp) ========== */
 h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     color: var(--color-light);
-    margin-bottom: 15px; /* Har title ke neeche thoda gap */
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    margin-bottom: var(--spacing-md);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-md);
+}
+
+h3 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    margin-bottom: var(--spacing-sm);
+}
+
+p {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-sm);
 }
 
 a {
-    color: var(--color-primary); /* Saare links default mein orange honge */
-    text-decoration: none; /* Link ke neeche ki line (underline) hata di */
-    transition: color 0.3s ease; /* Link par hover karne se smooth effect aayega */
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    color: var(--color-light); /* Jab link par mouse le jaayein toh woh white ho jaaye */
-}
-
-ul {
-    list-style: none; /* Saare default bullet points (dots) hata diye */
-}
-
-/* ======== 03. CONTAINER (Content ko center mein laane ke liye) ======== */
-
-/* Yeh woh 'container' class hai jo humne har section mein use ki hai */
-.container {
-    width: 90%; /* Website 90% width legi */
-    max-width: 1200px; /* Lekin 1200px se zyada chaudi nahi hogi */
-    margin: 0 auto; /* Content ko page ke beech mein center karega */
-}
-
-/* Har section ke beech mein standard spacing */
-section {
-    padding: 80px 0;
-}
-
-/* ======== 04. REUSABLE BUTTONS ======== */
-
-/* Yeh hamari main "Get Service" jaise buttons ko style karega */
-.btn {
-    display: inline-block; /* Taaki ispar padding kaam kare */
-    padding: 12px 28px;
-    background-color: var(--color-primary); /* Orange background */
-    color: var(--color-light); /* White text */
-    text-transform: uppercase;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px; /* Thode rounded corners */
-    transition: all 0.3s ease;
-    cursor: pointer;
-    
-}
-
-.btn:hover {
-    background-color: #d46b1f; /* Orange ka thoda dark shade */
     color: var(--color-light);
 }
 
-/* Yeh "All Services" jaise secondary button ke liye hai */
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Ensure all images are responsive */
+img[src],
+img[srcset] {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Profile images and avatars */
+.nav-avatar,
+.profile-icon img,
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* ========== 03. CONTAINER & LAYOUT ========== */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2rem);
+}
+
+section {
+    padding: clamp(2.5rem, 6vw, 5rem) 0;
+}
+
+/* ========== 04. BUTTONS (Responsive) ========== */
+.btn {
+    display: inline-block;
+    padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.25rem, 3vw, 1.75rem);
+    background-color: var(--color-primary);
+    color: var(--color-light);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn:hover {
+    background-color: #d46b1f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(232, 122, 39, 0.4);
+}
+
 .btn-secondary {
     background-color: transparent;
     border: 2px solid var(--color-primary);
@@ -93,25 +151,34 @@ section {
     color: var(--color-light);
 }
 
-
-/* ======== 05. NAVBAR STYLING ======== */
-.navbar {
-    border-bottom: 1px solid #222; /* Navbar ke neeche halki si line */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-light);
 }
 
-.navbar .container {
+/* ========== 05. NAVBAR (Mobile-First) ========== */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #121212;
+    border-bottom: 1px solid #222;
+    padding: var(--spacing-sm) 0;
+}
+
+.navbar .container.nav-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
 }
 
-/* Logo Styling */
 .navbar .logo {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-weight: 700;
     text-transform: uppercase;
+    flex-shrink: 0;
 }
 
 .navbar .logo .logo-white {
@@ -132,185 +199,258 @@ section {
     color: var(--color-light);
 }
 
-/* Navigation Links */
+/* Hamburger Menu */
+.hamburger {
+    display: block;
+    cursor: pointer;
+    width: 30px;
+    height: 22px;
+    position: relative;
+    z-index: 1100;
+    flex-shrink: 0;
+}
+
+.hamburger span {
+    background: var(--color-primary);
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    border-radius: 4px;
+    left: 0;
+    transition: 0.3s ease;
+}
+
+.hamburger span:nth-child(1) {
+    top: 0px;
+}
+
+.hamburger span:nth-child(2) {
+    top: 9px;
+}
+
+.hamburger span:nth-child(3) {
+    top: 18px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 9px;
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 9px;
+}
+
+/* Navigation Links - Mobile (Hidden by default) */
+.nav-center {
+    width: 100%;
+    order: 3;
+}
+
 .navbar .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    background-color: var(--color-darker);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-md);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-top: var(--spacing-sm);
+}
+
+.navbar .nav-links.active {
     display: flex;
-    gap: 25px;
 }
 
 .navbar .nav-links a {
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: clamp(0.875rem, 2vw, 1rem);
     color: var(--color-grey);
-    position: relative;
-    padding-bottom: 5px; /* spacing for underline */
+    padding: var(--spacing-sm);
+    border-radius: 6px;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
-.navbar .nav-links a.active,
-.navbar .nav-links a:hover {
+.navbar .nav-links a:hover,
+.navbar .nav-links a.active {
     color: var(--color-primary);
+    background-color: rgba(232, 122, 39, 0.1);
 }
 
-/* Phone number button */
-.navbar .navbar-phone {
-    padding: 8px 16px;
+/* Dropdown Menu */
+.navbar .dropdown {
+    position: relative;
+}
+
+.navbar .dropdown-content {
+    display: none;
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    padding: var(--spacing-sm) 0 0 var(--spacing-md);
+    margin-top: var(--spacing-xs);
+}
+
+.navbar .nav-links .dropdown.active .dropdown-content {
+    display: block;
+}
+
+.navbar .dropdown-content a {
+    font-size: clamp(0.8125rem, 1.8vw, 0.875rem);
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Nav Right (EV Button & Profile) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.ev-btn {
+    padding: clamp(0.5rem, 1.5vw, 0.625rem) clamp(0.75rem, 2vw, 1rem);
     border: 2px solid var(--color-primary);
     color: var(--color-primary);
     border-radius: 5px;
-    font-weight: bold;
-    transition: 0.3s;
+    font-weight: 600;
+    font-size: clamp(0.75rem, 1.8vw, 0.875rem);
+    text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
-.navbar .navbar-phone:hover {
+.ev-btn:hover {
     background-color: var(--color-primary);
     color: var(--color-light);
 }
 
-/* ======== LOGIN DROPDOWN FIX ======== */
-.nav-dropdown {
-    position: relative;
-    z-index: 100;
-}
-
-/* Orange underline ONLY under LOGIN text */
-.nav-dropdown > a::after {
-    content: "";
-    display: block;
-    width: 40%; /* Short underline */
-    height: 3px;
-    background: var(--color-primary);
-    margin: 4px auto 0;
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: all 0.3s ease;
-}
-
-/* Show underline on hover */
-.nav-dropdown:hover > a::after {
-    opacity: 1;
-    transform: scaleX(1);
-}
-
-/* Dropdown box (no orange border now) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 160px;
-    background-color: var(--color-darker);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    padding: 10px 0;
-    border-radius: 6px;
-}
-
-/* Dropdown links */
-.dropdown-content a {
-    color: var(--color-light) !important;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-    font-size: 14px;
+.profile-icon {
+    width: clamp(32px, 5vw, 42px);
+    height: clamp(32px, 5vw, 42px);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    cursor: pointer;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
-.dropdown-content a:hover {
-    background-color: #1a1a1a;
-    color: var(--color-primary) !important;
+.profile-icon img,
+.nav-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-/* Show dropdown on hover */
-.nav-dropdown:hover .dropdown-content {
-    display: block;
+.profile-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(255, 123, 0, 0.4);
 }
 
-/* ======== 06. HERO SECTION STYLING ======== */
+/* ========== 06. HERO SECTION (Mobile-First) ========== */
 .hero {
-    padding-top: 100px;
-    padding-bottom: 100px;
-    /* Optional: Aap background mein halka sa gradient ya pattern bhi daal sakte hain */
+    padding: clamp(3rem, 8vw, 6rem) 0;
 }
 
-/* Yeh 'hero-content' container hai jisme text aur image dono hain */
 .hero .hero-content {
-    display: flex; /* Sabse important: 2-column layout ke liye */
-    align-items: center; /* Dono columns ko vertically center karega */
-    gap: 30px; /* Dono columns ke beech mein gap */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    text-align: center;
 }
 
-/* 1. Left Column (Text wala) */
 .hero .hero-text {
-    flex: 1; /* Yeh column ko available space ka 50% dega */
-    padding-right: 20px; /* Text aur image ke beech thodi padding */
+    flex: 1;
+    width: 100%;
 }
 
 .hero .hero-text h1 {
-    font-size: 48px; /* Title ko bada banayenge */
+    font-size: clamp(1.75rem, 6vw, 3rem);
     line-height: 1.2;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-md);
 }
 
 .hero .hero-text p {
-    font-size: 16px;
-    margin-bottom: 30px;
-    max-width: 500px; /* Paragraph ko thoda patla rakhenge */
+    font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
+    margin-bottom: var(--spacing-lg);
+    max-width: 100%;
 }
 
-/* 2. Right Column (Car Image wala) */
 .hero .hero-image {
-    flex: 1; /* Yeh column ko available space ka 50% dega */
-    min-height: 400px; /* Column ko ek minimum height denge */
-    
-    /* YEH SABSE IMPORTANT PART HAI */
-    background-image: url('images/car_image-removebg-preview.png'); /* <<-- APNI IMAGE KA PATH YAHAN DAALEIN */
-    background-size: contain; /* Image ko poora fit karega */
+    flex: 1;
+    width: 100%;
+    min-height: clamp(200px, 40vw, 400px);
+    background-image: url('images/car_image-removebg-preview.png');
+    background-size: contain;
     background-repeat: no-repeat;
-    background-position: center; /* Image ko center mein rakhega */
+    background-position: center;
+    background-attachment: scroll;
+}
 
-}/* ======== 07. STATS SECTION STYLING ======== */
+/* Ensure background images are responsive */
+@media (max-width: 480px) {
+    .hero .hero-image {
+        min-height: clamp(150px, 35vw, 250px);
+        background-size: contain;
+    }
+}
 
+/* ========== 07. STATS SECTION ========== */
 .stats {
-    background-color: var(--color-darker); /* Ek alag dark background */
-    padding-top: 60px;  /* Upar-neeche thodi kam padding */
-    padding-bottom: 60px;
+    background-color: var(--color-darker);
+    padding: clamp(2.5rem, 6vw, 4rem) 0;
 }
 
 .stats .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
-    gap: 30px; /* Columns ke beech mein gap */
-    text-align: center; /* Sab text ko center mein rakhega */
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    text-align: center;
 }
 
-/* Optional: Items ke beech mein line */
-
 .stats .stat-item h2 {
-    font-size: 42px; /* Number ko bada dikhayenge */
-    color: var(--color-primary); /* Orange color */
-    margin-bottom: 5px;
+    font-size: clamp(2rem, 5vw, 2.625rem);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
 }
 
 .stats .stat-item p {
-    font-size: 14px;
-    text-transform: uppercase; /* Pehle se hai, but good practice */
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    text-transform: uppercase;
     color: var(--color-grey);
 }
-/* ======== 08. SERVICES SECTION STYLING ======== */
 
-/* Title aur Button ko handle karne ke liye */
+/* ========== 08. SERVICES SECTION ========== */
 .services .section-header {
     display: flex;
-    justify-content: space-between; /* Title left, button right */
-    align-items: center;
-    margin-bottom: 40px; /* Grid se thoda gap */
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    margin-bottom: var(--spacing-lg);
 }
 
-/* Title ke neeche orange line add karne ke liye */
 .services .section-header h2 {
     position: relative;
-    padding-bottom: 10px; /* Line ke liye jagah */
+    padding-bottom: var(--spacing-sm);
+    font-size: clamp(1.5rem, 4vw, 2rem);
 }
 
 .services .section-header h2::after {
@@ -318,636 +458,604 @@ section {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 50px; /* Line ki lambai */
-    height: 3px; /* Line ki motai */
-    background-color: var(--color-primary); /* Orange color */
+    width: 50px;
+    height: 3px;
+    background-color: var(--color-primary);
 }
 
-/* 6 services ka grid */
 .services .service-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
-    gap: 30px; /* Cards ke beech mein gap */
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
 }
 
-/* Har service card ka style */
 .services .service-item {
-    background-color: var(--color-darker); /* Dark background */
-    padding: 30px;
-    border: 1px solid #222; /* Halka sa border */
+    background-color: var(--color-darker);
+    padding: var(--spacing-lg);
+    border: 1px solid #222;
     transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .services .service-item:hover {
-    border-color: var(--color-primary); /* Hover par orange border */
-    transform: translateY(-5px); /* Halka sa upar uthega */
-}
-
-/* Icon (ab-hi placeholder) */
-.services .service-icon {
-    font-size: 36px; /* Icon ka size */
-    color: var(--color-primary);
-    margin-bottom: 15px;
-    /* Jab aap Font Awesome icons use karenge, toh woh yahaan style honge */
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(232, 122, 39, 0.2);
 }
 
 .services .service-item h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    margin-bottom: var(--spacing-sm);
 }
 
 .services .service-item p {
-    font-size: 14px;
-    margin-bottom: 20px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+    margin-bottom: var(--spacing-md);
 }
 
-/* "Details Service" link */
 .services .details-link {
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
 }
 
-/* Optional: Link ke aage orange square add karne ke liye */
 .services .details-link::before {
-    content: '■'; /* Ek square character */
+    content: '■';
     color: var(--color-primary);
     margin-right: 8px;
 }
-/* ======== 09. MAINTENANCE SECTION STYLING ======== */
 
+/* ========== 09. MAINTENANCE SECTION ========== */
 .maintenance {
-    /* Is section ka background dark rakhte hain */
     background-color: var(--color-darker);
 }
 
 .maintenance .maintenance-content {
     display: flex;
-    align-items: center; /* Text aur video vertically center mein rahenge */
-    gap: 40px; /* Video aur text ke beech mein gap */
+    flex-direction: column;
+    gap: var(--spacing-lg);
 }
 
-/* 1. Left Column (Video wala) */
 .maintenance .maintenance-media {
-    flex: 1.5; /* Video waale column ko zyada jagah denge (approx 60%) */
-    
-    /* YEH RESPONSIVE VIDEO KE LIYE ZAROORI HAI */
+    width: 100%;
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
+    border-radius: 8px;
 }
 
-/* YouTube iframe ko responsive banana */
 .maintenance .maintenance-media iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border: none; /* iframe ka default border hata do */
+    border: none;
 }
 
-/* 2. Right Column (Text wala) */
-.maintenance .maintenance-text {
-    flex: 1; /* Text waale column ko kam jagah denge (approx 40%) */
-    padding-left: 20px;
-}
-
-.maintenance .maintenance-text p {
-    font-size: 16px;
-    line-height: 1.7;
-}
-/* ======== 10. PRICING SECTION STYLING ======== */
-
-/* Main container ko 2-column (text | plans) mein baantna */
+/* ========== 10. PRICING SECTION ========== */
 .pricing .pricing-content {
     display: flex;
-    align-items: center;
-    gap: 40px;
+    flex-direction: column;
+    gap: var(--spacing-lg);
 }
 
-/* 1. Left Column (Text) */
 .pricing .pricing-text {
-    flex: 1; /* 1 hissa space lega */
-    padding-right: 20px;
+    flex: 1;
+}
+
+.pricing .pricing-text h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-md);
 }
 
 .pricing .pricing-text p {
-    font-size: 16px;
+    font-size: clamp(0.9375rem, 2vw, 1rem);
 }
 
-/* 2. Right Column (2-Plan Grid) */
 .pricing .pricing-grid-2 {
-    flex: 1.5; /* 1.5 hissa space lega (thoda bada) */
+    flex: 1.5;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 equal columns */
-    gap: 30px;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
 }
 
-/* Har pricing card ka style */
 .pricing .pricing-plan {
     background-color: var(--color-darker);
     border: 1px solid #222;
-    padding: 35px 30px;
+    padding: var(--spacing-lg);
     text-align: center;
     transition: all 0.3s ease;
+    border-radius: 10px;
+    position: relative;
 }
 
+.pricing .pricing-plan:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 138, 0, 0.3);
+}
+
+.pricing .pricing-plan::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 4px;
+    background-color: #ff8a00;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.pricing .pricing-plan:hover::after {
+    width: 100%;
+}
 
 .pricing .pricing-plan h3 {
-    font-size: 18px;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
     color: var(--color-grey);
+    margin-bottom: var(--spacing-sm);
 }
 
 .pricing .pricing-plan .price {
-    font-size: 48px;
+    font-size: clamp(2rem, 5vw, 3rem);
     color: var(--color-primary);
-    margin: 10px 0 5px 0;
-    font-weight: 900; /* Poppins-black */
+    margin: var(--spacing-sm) 0 var(--spacing-xs);
+    font-weight: 900;
 }
 
 .pricing .pricing-plan .per-month {
-    font-size: 14px;
-    margin-top: -10px; /* Price ke thoda kareeb */
-    margin-bottom: 25px;
+    font-size: clamp(0.75rem, 1.8vw, 0.875rem);
+    margin-bottom: var(--spacing-md);
 }
 
-/* Features list (checkmarks) */
 .pricing .pricing-plan ul {
-    text-align: left; /* List ko left-align rakha */
-    margin-bottom: 30px;
+    text-align: left;
+    margin-bottom: var(--spacing-lg);
 }
 
 .pricing .pricing-plan ul li {
-    margin-bottom: 12px;
-    position: relative; /* Checkmark ko position karne ke liye */
-    padding-left: 30px; /* Checkmark ke liye jagah */
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+    padding-left: 30px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
 }
 
-/* YEH HAI CHECKMARK (✓) */
 .pricing .pricing-plan ul li::before {
-    content: '✓'; /* Checkmark character */
-    color: var(--color-primary); /* Orange color */
-    font-weight: bold;
+    content: '✓';
+    color: var(--color-primary);
+    font-weight: 700;
     position: absolute;
     left: 0;
     top: 0;
 }
 
-/* YEH HAI CROSS (✗) */
 .pricing .pricing-plan ul li.disabled {
-    color: #555; /* Disabled text ko grey kiya */
-    text-decoration: line-through; /* Beech se line */
+    color: #555;
+    text-decoration: line-through;
 }
 
 .pricing .pricing-plan ul li.disabled::before {
-    content: '✗'; /* Cross character */
-    color: #555; /* Grey color */
+    content: '✗';
+    color: #555;
 }
 
-/* Button pehle se hi .btn class se styled hai */
-
-/* ======== 11. FEATURE SECTIONS (Cleaning & Waxing) (FIXED) ======== */
-
-/* Default background color */
+/* ========== 11. FEATURE SECTIONS ========== */
 .feature-section {
     background-color: var(--color-darker);
 }
 
-/* Dono sections mein se ek ko alag background dene ke liye */
-.feature-section:nth-of-type(odd) {
-     /* Yeh 'Waxing' section ka background thoda alag kar dega */
-    background-color:var(--color-darker);
-}
-
 .feature-section .feature-content {
     display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
     align-items: center;
-    gap: 40px;
 }
 
-/* 1. Text Column */
 .feature-section .feature-text {
-    flex: 1; /* 50% space */
-    padding: 20px;
+    flex: 1;
+    width: 100%;
+    text-align: center;
 }
 
 .feature-section .feature-text h2 {
-    font-size: 32px;
-    margin-bottom: 25px;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: var(--spacing-md);
 }
 
-/* 2. Image Column */
-.feature-section .feature-image {
-    flex: 1; /* 50% space */
-    min-height: 450px;
-    background-size: cover;
-    background-position: center;
+.feature-section .feature-text p {
+    font-size: clamp(0.9375rem, 2vw, 1rem);
+    margin-bottom: var(--spacing-md);
 }
 
-/* ======== Specific Images for each section ======== */
-
-/* Section 6: Exterior Cleaning (jiska HTML order [image] [text] hai) */
-.layout-reversed .feature-image {
-    /* Aapki 'Exterior Cleaning' ki image */
-    background-image: url('images/service_img_1.jpg'); 
-}
-
-/* Section 7: Waxing (jiska HTML order [text] [image] hai) */
-.feature-section:not(.layout-reversed) .feature-image {
-     /* Aapki 'Waxing' ki image */
-     background-image: url('images/professional-vehicle-body-polishing-2023-11-27-05-06-19-utc-1536x1025.jpg');
-}
-
-
-/* ======== YEH RULE HATA DIYA GAYA HAI ======== */
-/* .layout-reversed .feature-content {
-    flex-direction: row-reverse;  <-- YEH GALTI KAR RAHA THA
-}
-*/
-
-/* Styling for the list in "Exterior Cleaning" */
 .feature-section .feature-text ul {
     list-style: none;
-    margin-top: 20px;
+    margin-top: var(--spacing-md);
+    text-align: left;
 }
 
 .feature-section .feature-text ul li {
     position: relative;
-    padding-left: 30px; /* Checkmark ke liye jagah */
-    margin-bottom: 12px;
-    font-size: 16px;
-    color: var(--color-light); /* Text ko white kiya */
+    padding-left: 30px;
+    margin-bottom: var(--spacing-sm);
+    font-size: clamp(0.9375rem, 2vw, 1rem);
+    color: var(--color-light);
 }
 
-/* List ke items ke aage checkmark */
 .feature-section .feature-text ul li::before {
     content: '✓';
     color: var(--color-primary);
-    font-weight: bold;
+    font-weight: 700;
     position: absolute;
     left: 0;
     top: 0;
 }
 
-
-/* ======== 12. HOW-TO SECTION STYLING ======== */
-
-
-
-/* Main container ko 2-column (text | grid) mein baantna */
-.how-to .how-to-content {
-    display: flex;
-    align-items: center; /* Vertically center */
-    gap: 40px;
+.feature-section .feature-image {
+    flex: 1;
+    width: 100%;
+    min-height: clamp(250px, 50vw, 450px);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: clamp(6px, 1.5vw, 8px);
+    background-attachment: scroll;
 }
 
-/* 1. Left Column (Text) */
+/* Ensure feature images are responsive on mobile */
+@media (max-width: 480px) {
+    .feature-section .feature-image {
+        min-height: clamp(200px, 45vw, 300px);
+        background-size: cover;
+    }
+}
+
+.layout-reversed .feature-image {
+    background-image: url('images/service_img_1.jpg');
+}
+
+.feature-section:not(.layout-reversed) .feature-image {
+    background-image: url('images/professional-vehicle-body-polishing-2023-11-27-05-06-19-utc-1536x1025.jpg');
+}
+
+/* ========== 12. HOW-TO SECTION ========== */
+.how-to .how-to-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
 .how-to .how-to-text {
-    flex: 1; /* 1 hissa space lega */
-    padding-right: 20px;
+    flex: 1;
+    text-align: center;
 }
 
 .how-to .how-to-text h2 {
-    font-size: 32px;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: var(--spacing-md);
 }
 
 .how-to .how-to-text p {
-    font-size: 16px;
-    line-height: 1.7;
+    font-size: clamp(0.9375rem, 2vw, 1rem);
 }
 
-/* 2. Right Column (4-Step Grid) */
 .how-to .how-to-grid {
-    flex: 1.2; /* Grid ko thodi zyada jagah di */
+    flex: 1.2;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 equal columns */
-    gap: 30px; /* Steps ke beech mein gap */
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
 }
 
-/* Har step (card) ka style */
 .how-to .step {
     background-color: var(--color-darker);
-    padding: 25px;
-    border-bottom: 3px solid transparent; /* Neeche border ke liye jagah */
+    padding: var(--spacing-lg);
+    border-bottom: 3px solid transparent;
     transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .how-to .step:hover {
-    border-bottom-color: var(--color-primary); /* Hover par orange border */
+    border-bottom-color: var(--color-primary);
     transform: translateY(-5px);
 }
 
-/* Step ka number (01, 02) */
 .how-to .step span {
-    font-size: 28px;
-    font-weight: 900; /* Poppins-black */
+    font-size: clamp(1.5rem, 4vw, 1.75rem);
+    font-weight: 900;
     color: var(--color-primary);
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: var(--spacing-sm);
 }
 
 .how-to .step h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    margin-bottom: var(--spacing-sm);
 }
 
 .how-to .step p {
-    font-size: 14px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     color: var(--color-grey);
 }
 
-
-/* ======== 13. POPULAR ARTICLES STYLING (Mixed Design - FIXED) ======== */
-
+/* ========== 13. ARTICLES SECTION ========== */
 .articles {
     background-color: var(--color-darker);
 }
 
 .articles h2 {
-    margin-bottom: 40px; 
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: var(--spacing-lg);
 }
 
-/* Main grid (2 rows) */
 .articles .articles-grid {
     display: grid;
-    grid-template-rows: auto auto; 
-    gap: 30px; 
+    grid-template-rows: auto auto;
+    gap: var(--spacing-lg);
 }
 
-/* --- Styling for ALL cards --- */
 .articles .article-card {
     border: 1px solid #222;
-    overflow: hidden; 
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.articles .article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .articles .article-card .article-image {
+    width: 100%;
     background-size: cover;
     background-position: center;
-    width: 100%;
+    background-repeat: no-repeat;
     transition: transform 0.4s ease;
+    object-fit: cover;
+}
+
+/* Ensure article images are responsive */
+@media (max-width: 480px) {
+    .articles .article-card .article-image {
+        background-size: cover;
+        min-height: clamp(180px, 40vw, 220px);
+    }
 }
 
 .articles .article-card:hover .article-image {
-    transform: scale(1.05); /* Zoom effect */
+    transform: scale(1.05);
 }
 
-/* --- 1. Bada Article (Top) --- */
-
 .articles .main-article {
-    grid-row: 1; /* Pehli row */
-    position: relative; /* Text ko absolute position dene ke liye */
-    background-color: #333; /* Fallback */
+    grid-row: 1;
+    position: relative;
+    background-color: #333;
 }
 
 .articles .main-article .article-image {
-    min-height: 450px; 
+    min-height: clamp(250px, 50vw, 450px);
 }
 
 .articles .main-article .article-content {
-    /* Text image ke UPAR */
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
+    padding: var(--spacing-md);
     background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
 }
 
-/* --- 2. Chhote Articles (Bottom) --- */
-
 .articles .bottom-articles-grid {
-    grid-row: 2; /* Doosri row */
+    grid-row: 2;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 30px; 
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
 }
 
 .articles .bottom-articles-grid .article-card {
-    background-color: #333; /* Text box ka background */
+    background-color: #333;
 }
 
 .articles .bottom-articles-grid .article-image {
-    min-height: 250px; 
+    min-height: clamp(200px, 40vw, 250px);
 }
 
 .articles .bottom-articles-grid .article-content {
-    /* Text image ke NEECHE */
-    padding: 20px;
-    /* Yahaan position: absolute nahi hai */
+    padding: var(--spacing-md);
 }
 
-
-/* --- Text Styling (Common) --- */
-
 .articles .article-card .category {
-    font-size: 12px;
-    font-weight: bold;
+    font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
+    font-weight: 700;
     color: var(--color-primary);
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: var(--spacing-xs);
 }
 
 .articles .article-card .meta {
-    font-size: 13px;
+    font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
     color: var(--color-grey);
-    margin-top: 10px;
-    
-    /* YEH RAHA FIX: */
-    display: block; /* 'Read More' ko agli line par bhejega */
-    margin-bottom: 10px; /* 'Read More' se thoda gap */
+    margin-top: var(--spacing-sm);
+    display: block;
+    margin-bottom: var(--spacing-sm);
 }
 
-/* Title size alag-alag */
-.articles .main-article h3 { 
-    font-size: 24px;
+.articles .main-article h3 {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
 }
-.articles .bottom-articles-grid h3 { 
-    font-size: 18px; 
+
+.articles .bottom-articles-grid h3 {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
     line-height: 1.3;
 }
 
-/* Read More (Sirf chhote cards mein hai) */
 .articles .bottom-articles-grid .read-more {
-    font-size: 13px;
-    font-weight: bold;
+    font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
+    font-weight: 700;
     text-transform: uppercase;
-    color: var(--color-light); 
-    display: inline-block; 
-    
-    /* Margin-top kam kar diya kyunki .meta mein margin-bottom hai */
-    margin-top: 5px; 
+    color: var(--color-light);
+    display: inline-block;
+    margin-top: var(--spacing-xs);
 }
+
 .articles .bottom-articles-grid .read-more:hover {
     color: var(--color-primary);
 }
+
 .articles .bottom-articles-grid .read-more::before {
-    content: '■'; 
+    content: '■';
     color: var(--color-primary);
     margin-right: 8px;
     font-size: 10px;
 }
 
-/* --- Article Images --- */
-#article-img-1 { background-image: url('images/battery.jpg'); }
-#article-img-2 { background-image: url('images/interior.jpg'); }
-#article-img-3 { background-image: url('images/Engine\ light.jpg'); }
-#article-img-4 { background-image: url('images/man-polish-car-garage.webp'); }
+#article-img-1 {
+    background-image: url('images/battery.jpg');
+}
 
+#article-img-2 {
+    background-image: url('images/interior.jpg');
+}
 
-/* ======== 14. APPOINTMENT FORM STYLING (FINAL FIX) ======== */
+#article-img-3 {
+    background-image: url('images/Engine\ light.jpg');
+}
 
+#article-img-4 {
+    background-image: url('images/man-polish-car-garage.webp');
+}
 
+/* ========== 14. APPOINTMENT FORM ========== */
 .appointment .appointment-header {
-    text-align: left; /* Text ko left-align kiya */
-    max-width: 900px; 
-    margin: 0 0 40px 0; /* Header ko left-aligned rakha */
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
 }
 
 .appointment .appointment-header h2 {
-    font-size: 42px;
+    font-size: clamp(1.5rem, 4vw, 2.625rem);
+    margin-bottom: var(--spacing-md);
 }
 
-/* Form ko 2 column grid mein set karna */
+.appointment .appointment-header p {
+    font-size: clamp(0.9375rem, 2vw, 1rem);
+}
+
 .appointment .appointment-form {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 equal columns */
-    gap: 25px 30px; /* Vertical gap, Horizontal gap */
-    max-width: 900px; 
-    margin: 0; /* Form ko left-align kiya */
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Jo fields poori width lete hain (Message, Button) */
 .appointment .form-group.full-width {
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
 }
 
-/* Form ke labels (YOUR NAME, etc.) */
 .appointment .form-group label {
-    font-size: 17px;
-    font-weight: bold;
-    color: var(--color-light); 
+    font-size: clamp(0.875rem, 2vw, 1.0625rem);
+    font-weight: 700;
+    color: var(--color-light);
     text-transform: uppercase;
-    display: block; 
-    margin-bottom: 8px;
+    display: block;
+    margin-bottom: var(--spacing-xs);
 }
 
-/* --- YEH RAHA ASLI FIX (Input fields) --- */
-
-/* Saare input, select, textarea ka common style */
 .appointment .form-group input,
 .appointment .form-group textarea,
 .appointment .form-group select {
     width: 100%;
-    background-color: transparent; 
+    background-color: transparent;
     border: none;
-    border-bottom: 1px solid #fff9f9; /* Halki si grey line */
-    color: var(--color-light); 
-    font-size: 17px;
-    font-family: 'Poppins', sans-serif; 
-    border-radius: 0; 
-    padding: 10px 5px; 
+    border-bottom: 1px solid #fff9f9;
+    color: var(--color-light);
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    font-family: 'Poppins', sans-serif;
+    border-radius: 0;
+    padding: var(--spacing-sm) var(--spacing-xs);
     transition: border-color 0.3s ease;
 }
 
-/* 1. TEXTAREA FIX: Height aur padding kam ki */
 .appointment .form-group textarea {
-    min-height: 50px; /* Target image jaisi height */
-    padding: 5px; /* Padding kam ki */
-    resize: none; 
+    min-height: 80px;
+    padding: var(--spacing-xs);
+    resize: vertical;
     overflow: auto;
 }
 
-/* 2. ICON FIX (Date/Time icons white) */
 .appointment .form-group input[type="date"],
 .appointment .form-group input[type="time"] {
-    color-scheme: dark; 
+    color-scheme: dark;
 }
 
-/* Jab user type karne ke liye click karega */
 .appointment .form-group input:focus,
 .appointment .form-group textarea:focus,
 .appointment .form-group select:focus {
-    outline: none; 
-    border-bottom-color: var(--color-primary); 
+    outline: none;
+    border-bottom-color: var(--color-primary);
 }
 
-/* Placeholder text ka color */
 .appointment .form-group input::placeholder,
 .appointment .form-group textarea::placeholder {
     color: var(--color-grey);
 }
 
-/* 3. BUTTON WIDTH FIX: Poori width hata di */
-
-
-/* ======== 15. FOOTER STYLING (FINAL FIX) ======== */
+/* ========== 15. FOOTER ========== */
 .footer {
     background-color: var(--color-darker);
-    padding-top: 60px; 
-    padding-bottom: 60px; 
-    border-top: 1px solid #222; 
+    padding: clamp(2.5rem, 6vw, 4rem) 0;
+    border-top: 1px solid #222;
 }
 
-/* Main 4-column Grid */
 .footer .footer-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1.5fr 1.5fr; 
-    gap: 40px;
-    align-items: start; /* ✅ Align from top */
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    text-align: center;
 }
 
-/* Remove section spacing */
-.footer .appointment {
-    margin: 0;
-    padding: 0;
-}
-
-/* Footer Columns */
 .footer .footer-col {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-/* ROADBUDDY Logo Section */
 .footer .footer-col h3.footer-logo {
-    font-size: 20px; 
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
     font-weight: 700;
-    color: var(--color-light); 
-    margin-bottom: 10px;
+    color: var(--color-light);
+    margin-bottom: var(--spacing-sm);
     position: relative;
-    padding-left: 25px; 
+    padding-left: 25px;
 }
 
 .footer .footer-col h3.footer-logo::before {
-    content: '⚙'; 
+    content: '⚙';
     position: absolute;
     left: 0;
     top: 2px;
     color: var(--color-primary);
 }
 
-/* Column Headings */
 .footer .footer-col h3 {
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: clamp(1rem, 2.5vw, 1rem);
+    margin-bottom: var(--spacing-md);
     color: var(--color-light);
 }
 
-/* About Links */
 .footer-col .footer-links a {
-    font-size: 14px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     color: var(--color-grey);
     position: relative;
-    padding-left: 15px; 
-    margin-bottom: 8px;
+    padding-left: 15px;
+    margin-bottom: var(--spacing-xs);
     display: inline-block;
 }
 
 .footer-col .footer-links a::before {
-    content: '•'; 
+    content: '•';
     color: var(--color-primary);
     position: absolute;
     left: 0;
@@ -955,24 +1063,23 @@ section {
     line-height: 1.5;
 }
 
-/* Services List (2-column) */
 .footer-col .service-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 15px;
-    margin-top: -5px; 
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs) var(--spacing-sm);
+    margin-top: -5px;
 }
 
 .footer-col .service-list li a {
-    font-size: 12px;
+    font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
     color: var(--color-grey);
     position: relative;
-    padding-left: 15px; 
+    padding-left: 15px;
     display: inline-block;
 }
 
 .footer-col .service-list li a::before {
-    content: '•'; 
+    content: '•';
     color: var(--color-primary);
     position: absolute;
     left: 0;
@@ -980,32 +1087,31 @@ section {
     line-height: 1.5;
 }
 
-.footer-col .service-list li a.highlight {
-    color: var(--color-primary); 
+.footer-col .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
 }
 
-/* Subscribe Form */
 .footer-col .newsletter-form input {
     width: 100%;
-    padding: 12px;
-    background-color: #1a1a1a; 
-    border: 1px solid #333; 
+    padding: var(--spacing-sm);
+    background-color: #1a1a1a;
+    border: 1px solid #333;
     color: var(--color-light);
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+    border-radius: 5px;
 }
 
-/* Contact Number */
+.footer-col .newsletter-form input::placeholder {
+    color: var(--color-grey);
+}
+
 #num {
     color: #fff9f9;
 }
 
-
-/* ========================================================= */
-/* ======== 16. USER/MECHANIC LOGIN PAGE STYLING (ANIMATED DARK) ======== */
-/* ========================================================= */
-
-/* Body ko full screen center karne ke liye */
+/* ========== 16. LOGIN PAGE STYLES ========== */
 .login-body {
     margin: 0;
     padding: 0;
@@ -1014,70 +1120,62 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: auto; /* Scrollbar ko hataya */
-
-    /* Animated Gradient Background */
-    /* NOTE: Colors ko direct use kiya gaya hai, agar var(--color...) se conflict ho */
+    overflow: auto;
     background: linear-gradient(-45deg, #0a0a0a, #1a1a1a, #222, #0a0a0a);
     background-size: 400% 400%;
-    animation: gradientMove 10s ease infinite; /* 10 second ki smooth animation */
+    animation: gradientMove 10s ease infinite;
 }
 
-/* Background animation definition */
 @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* Glassy Login Container */
 .login-container {
-    /* Glass Effect: Halka transparent background aur blur */
-    background: rgba(25, 25, 25, 0.7); 
+    background: rgba(25, 25, 25, 0.7);
     backdrop-filter: blur(8px);
     border-radius: 16px;
-    padding: 45px 40px;
+    padding: clamp(2rem, 5vw, 2.8125rem) clamp(1.5rem, 4vw, 2.5rem);
     width: 100%;
     max-width: 420px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Halka white border */
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7); /* Deep shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
     animation: fadeIn 0.8s ease-in-out;
+    margin: var(--spacing-md);
 }
 
-/* Title (H2) */
 .login-title {
-    font-size: 28px;
-    color: var(--color-primary); /* Orange color */
-    margin-bottom: 35px;
+    font-size: clamp(1.5rem, 4vw, 1.75rem);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 700;
 }
 
-/* Input Fields */
 .login-group {
     text-align: left;
-    margin-bottom: 25px;
+    margin-bottom: var(--spacing-md);
 }
 
 .login-group label {
     display: block;
-    font-size: 14px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     color: var(--color-grey);
-    margin-bottom: 10px;
+    margin-bottom: var(--spacing-sm);
     font-weight: 600;
 }
 
 .login-group input {
     width: 100%;
-    padding: 14px;
-    /* Input field ko bhi halka transparent kiya */
-    background-color: rgba(255, 255, 255, 0.05); 
+    padding: var(--spacing-sm);
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     color: var(--color-light);
-    font-size: 14px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     transition: all 0.3s ease;
 }
 
@@ -1085,34 +1183,30 @@ section {
     border-color: var(--color-primary);
     background-color: rgba(255, 255, 255, 0.1);
     outline: none;
-    box-shadow: 0 0 10px var(--color-primary); /* Orange glow on focus */
+    box-shadow: 0 0 10px var(--color-primary);
 }
 
-/* Login Button */
 .btn.login-button {
     width: 100%;
-    /* Button ki base styling main style.css se aayegi */
-    padding: 14px; 
-    margin-top: 10px;
-    font-size: 18px;
-    border-radius: 8px; /* Button ko bhi rounded kiya */
-    clip-path: none; /* Slanted effect hata diya, kyunki yeh login page hai */
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    border-radius: 8px;
+    max-width: 100%;
 }
 
-/* Forgot Password */
 .forgot-link {
     display: block;
-    margin-top: 15px;
-    font-size: 14px;
+    margin-top: var(--spacing-md);
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     color: var(--color-primary);
     text-decoration: none;
     transition: 0.3s;
 }
 
-/* Register Section */
 .register-text {
-    margin-top: 30px;
-    font-size: 14px;
+    margin-top: var(--spacing-lg);
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     color: var(--color-grey);
 }
 
@@ -1122,7 +1216,6 @@ section {
     font-weight: 600;
 }
 
-/* Fade In Animation for the container */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1132,1369 +1225,717 @@ section {
     }
 }
 
-/* ======== FLASH MESSAGE STYLING ======== */
-
+/* ========== 17. FLASH MESSAGES ========== */
 .flash-message {
-    padding: 10px 20px;
-    margin-bottom: 25px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md);
     border-radius: 6px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     text-align: center;
-    text-transform: none; /* Text ko uppercase nahi karenge */
-    color: var(--color-light); /* Default white text */
+    text-transform: none;
+    color: var(--color-light);
 }
 
-/* Success Message (Green Color) */
 .flash-success {
-    background-color: #28a745; /* Success Green */
+    background-color: #28a745;
     border: 1px solid #1e7e34;
 }
 
-/* Error Message (Red Color) */
 .flash-error {
-    background-color: #dc3545; /* Error Red */
+    background-color: #dc3545;
     border: 1px solid #c82333;
 }
 
-/* Info/Warning Message (Optional) */
 .flash-info {
-    background-color: #ffc107; /* Warning Yellow */
-    color: #333; /* Dark text for yellow background */
+    background-color: #ffc107;
+    color: #333;
 }
 
-/* ---------- ADMIN DASHBOARD STYLES ---------- */
-
-.admin-body {
-    font-family: "Poppins", Arial, sans-serif;
-    background-color: #f6f8fa;
-    padding: 40px 0;
+/* ========== 18. MODAL STYLES ========== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: var(--spacing-md);
 }
 
-.admin-container {
-    width: 90%;
-    margin: auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    padding: 20px 30px;
-}
-
-.admin-title {
-    text-align: center;
-    color: #222;
-    margin-bottom: 25px;
-}
-
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.admin-table th, .admin-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-    font-size: 15px;
-}
-
-.admin-table th {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.admin-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.btn-approve, .btn-reject {
-    padding: 7px 14px;
-    border: none;
-    border-radius: 5px;
+.modal-content {
+    background: #111;
     color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-approve {
-    background-color: #28a745;
-}
-
-.btn-approve:hover {
-    background-color: #218838;
-}
-
-.btn-reject {
-    background-color: #dc3545;
-    margin-left: 8px;
-}
-
-.btn-reject:hover {
-    background-color: #c82333;
-}
-
-.no-data {
-    text-align: center;
-    color: #555;
-    padding: 40px;
-    font-size: 16px;
-}
-
-/*
-MECHANIC DASHBOARD CSSS
-*/
-/* ===== Global Layout ===== */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #111;
-    color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* ===== Header ===== */
-.dashboard-header {
-    background-color: #1c1c1c;
-    padding: 1.2rem 0;
-    border-bottom: 1px solid #333;
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.dashboard-header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #ff8c32;
-    letter-spacing: 1px;
-}
-
-.status-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* ===== Buttons ===== */
-.btn {
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.95rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background-color: #ff8c32;
-    color: #fff;
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: #ff8c32;
-    border: 2px solid #ff8c32;
-}
-
-.btn:hover {
-    opacity: 0.9;
-}
-
-.logout-btn {
-    background-color: #ff3b3b;
-    color: #fff;
-    border: none;
-}
-
-.logout-btn:hover {
-    background-color: #e32e2e;
-}
-
-/* ===== Main Dashboard ===== */
-.dashboard-main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 2rem 0;
-}
-
-/* ===== Cards ===== */
-.card {
-    background-color: #1e1e1e;
-    padding: 1.5rem;
-    border-radius: 14px;
-    flex: 1 1 calc(48% - 1rem);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-}
-
-.card h3 {
-    color: #ff8c32;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 0.5rem;
-}
-
-/* ===== Job Requests ===== */
-.request-item {
-    background-color: #2a2a2a;
-    padding: 1rem;
+    padding: var(--spacing-lg);
     border-radius: 10px;
-    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 600px;
+    border: 2px solid #ff6600;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
-.request-actions {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 0.8rem;
-}
-
-/* ===== Active Job ===== */
-.active-actions {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 0.8rem;
-}
-
-/* ===== Job History ===== */
-.job-history ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.job-history li {
-    background-color: #2a2a2a;
-    padding: 0.7rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-}
-
-.read-more {
-  display: inline-block;
-  margin-top: 10px;
-  color: #ff7b00; /* orange */
-  font-weight: bold;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.read-more:hover {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-/* /OUR SERVICES -- ADDING DETAILS --/ */
-body {
-  background-color: #0b0b0b;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-/* Section Styling */
-.services {
-  padding: 60px 0;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.section-header h2 {
-  font-size: 2rem;
-  border-bottom: 3px solid #ff6600;
-  padding-bottom: 5px;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 2px solid #ff6600;
-  color: #ff6600;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.btn-secondary:hover {
-  background: #ff6600;
-  color: #000;
-}
-
-/* Grid */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-}
-
-.service-item {
-  background: #121212;
-  border: 1px solid #222;
-  padding: 25px;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-.service-item:hover {
-  border-color: #ff6600;
-  transform: translateY(-4px);
-}
-
-.service-item h3 {
-  color: #fff;
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-
-.service-item p {
-  color: #ccc;
-  font-size: 0.95rem;
-  margin-bottom: 15px;
-}
-
-.details-link {
-  color: #ff6600;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.details-link:hover {
-  text-decoration: underline;
-}
-
-/* Modal Styling */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.modal-content {
-  background: #111;
-  color: white;
-  padding: 25px 30px;
-  border-radius: 10px;
-  width: 60%;
-  max-width: 600px;
-  border: 2px solid #ff6600;
-  position: relative;
-}
-
+.close-btn,
 #close-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 24px;
-  color: #ff6600;
-  transition: 0.3s;
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-md);
+    cursor: pointer;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    color: #ff6600;
+    transition: 0.3s;
+    background: none;
+    border: none;
+    z-index: 1000;
 }
 
+.close-btn:hover,
 #close-modal:hover {
-  color: #fff;
+    color: #fff;
 }
 
-#modal-title {
-  color: #ff6600;
-  margin-top: 0;
+/* ========== 19. CHATBOT ========== */
+#chatbot-btn {
+    position: fixed;
+    bottom: clamp(1.5rem, 4vw, 2rem);
+    right: clamp(1.5rem, 4vw, 2rem);
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    width: clamp(50px, 8vw, 60px);
+    height: clamp(50px, 8vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.3s ease;
 }
 
-/* FAKE PAYMENT SYSTEM */
-
-/* ===== Modal Styles ===== */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  justify-content: center;
-  align-items: center;
+#chatbot-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
 }
 
-.modal-content {
-  background: #111;
-  color: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  width: 400px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+#chatbot-popup {
+    display: none;
+    position: fixed;
+    bottom: clamp(6rem, 15vw, 8rem);
+    right: clamp(1.5rem, 4vw, 2rem);
+    width: clamp(280px, 80vw, 320px);
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    padding: var(--spacing-sm);
+    z-index: 9999;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 0.3s ease;
 }
 
-.modal-content input, 
-.modal-content select {
-  width: 90%;
-  margin: 10px 0;
-  padding: 8px;
-  border: none;
-  border-radius: 6px;
+#chat-output {
+    height: 250px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: var(--spacing-sm);
+    background: #f8f8f8;
+    color: #222;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+    line-height: 1.5;
 }
 
-.close-btn {
-  float: right;
-  cursor: pointer;
-  font-size: 22px;
-  color: #ff5252;
+#chat-input-area {
+    margin-top: var(--spacing-sm);
+    display: flex;
+    gap: var(--spacing-xs);
 }
 
-.btn {
-  background: orange;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
+#chat-input {
+    flex: 1;
+    padding: var(--spacing-sm);
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    color: #000;
+    background: #fff;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
 }
 
-/*  AFFORDABLE PRICING PLAN PAYMENT */
-/* --- ROADBUDDY modal styles --- */
+#chat-input::placeholder {
+    color: #999;
+}
+
+#send-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+}
+
+#send-btn:hover {
+    background: #0056b3;
+}
+
+/* ========== 20. PRICING MODAL STYLES ========== */
 .rb-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-md);
 }
+
 .rb-modal[aria-hidden="false"] {
-  display: flex;
+    display: flex;
 }
 
 .rb-modal-content {
-  width: 420px;
-  max-width: 95%;
-  background: #0f0f0f;
-  border: 1px solid #222;
-  padding: 20px 22px;
-  border-radius: 10px;
-  color: #fff;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    width: 100%;
+    max-width: 420px;
+    background: #0f0f0f;
+    border: 1px solid #222;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 10px;
+    color: #fff;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .rb-close {
-  position: absolute;
-  right: 12px;
-  top: 8px;
-  background: transparent;
-  border: none;
-  color: #ff8a00;
-  font-size: 26px;
-  cursor: pointer;
+    position: absolute;
+    right: var(--spacing-sm);
+    top: var(--spacing-xs);
+    background: transparent;
+    border: none;
+    color: #ff8a00;
+    font-size: clamp(1.25rem, 3vw, 1.625rem);
+    cursor: pointer;
 }
 
 .rb-modal h2 {
-  color: #ff8a00;
-  margin-top: 0;
-  text-align: left;
+    color: #ff8a00;
+    margin-top: 0;
+    text-align: left;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
 }
 
 .rb-modal label {
-  display: block;
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #ddd;
+    display: block;
+    margin-top: var(--spacing-sm);
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+    color: #ddd;
     align-self: flex-start;
 }
 
-/* ✅ Base input styles */
 .rb-modal input[type="text"],
 .rb-modal input[type="date"],
 .rb-modal input[type="number"],
 .rb-modal input[type="time"],
 .rb-modal select {
-  width: 100%;
-  padding: 9px 10px;
-  margin-top: 6px;
-  border-radius: 6px;
-  border: 1px solid #222;
-  background: #111;
-  color: #fff;
-  outline: none;
-  box-sizing: border-box;
+    width: 100%;
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+    border-radius: 6px;
+    border: 1px solid #222;
+    background: #111;
+    color: #fff;
+    outline: none;
+    box-sizing: border-box;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
 }
 
-/* ✅ Fix for invisible time input text */
 .rb-modal input[type="time"] {
-  color: #fff;
-  background-color: #111;
-  border: 1px solid #222;
-  padding: 9px 10px;
-  border-radius: 6px;
+    color: #fff;
+    background-color: #111;
 }
 
 .rb-modal input[type="time"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+    filter: invert(1);
 }
 
-/* ✅ Align Date & Time fields side by side */
-.datetime-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px; /* space between date & time */
-  width: 100%;
-}
-
-/* Make sure both Date and Time share equal width */
-.datetime-row input[type="date"],
-.datetime-row input[type="time"] {
-  flex: 1;
-  width: 100%;
-}
-/* ✅ Fix invisible Date Picker icon for dark mode */
 .rb-modal input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  cursor: pointer;
-  opacity: 0.8;
+    filter: invert(1);
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 .rb-modal input[type="date"]:hover::-webkit-calendar-picker-indicator {
-  opacity: 1;
-}
-#receiptModal[aria-hidden="false"] {
-  display: flex;
-}
-#receiptMessage {
-  color: #fff;
-  text-align: left;
-  line-height: 1.6;
-}
-#receiptMessage h2 {
-  color: #00ff66;
-  text-align: center;
-  margin-bottom: 12px;
+    opacity: 1;
 }
 
-
-/* Button styles */
-.btn {
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+.datetime-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
 }
 
-.btn-primary {
-  background: #ff8a00;
-  color: #000;
-  font-weight: 700;
-  transition: background 0.3s ease;
+.datetime-row input[type="date"],
+.datetime-row input[type="time"] {
+    flex: 1;
+    width: 100%;
 }
 
-.btn-primary:hover {
-  background: #ffa733;
-}
-
-/* ✅ Center the Proceed to Payment button perfectly */
 .rb-modal form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .rb-modal form .btn-primary {
-  background: #ff8a00;
-  color: #000;
-  font-weight: 700;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: fit-content;
-  margin-top: 15px;
-  text-align: center;
+    background: #ff8a00;
+    color: #000;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    margin-top: var(--spacing-md);
+    text-align: center;
 }
 
 .rb-modal form .btn-primary:hover {
-  background: #ffa733;
-  transform: scale(1.03);
+    background: #ffa733;
+    transform: scale(1.03);
 }
 
-/* Optional extras */
 .rb-note {
-  color: #999;
-  font-size: 0.85rem;
-  margin-top: 12px;
+    color: #999;
+    font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
+    margin-top: var(--spacing-sm);
 }
 
 .receipt-content {
-  background: #0b0b0b;
-  padding: 12px;
-  border-radius: 6px;
-  text-align: left;
-  color: #ddd;
+    background: #0b0b0b;
+    padding: var(--spacing-sm);
+    border-radius: 6px;
+    text-align: left;
+    color: #ddd;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
 }
 
 .welcome-msg {
-  margin-top: 10px;
-  font-weight: 700;
-  color: #ffd7a6;
+    margin-top: var(--spacing-sm);
+    font-weight: 700;
+    color: #ffd7a6;
+    font-size: clamp(0.9375rem, 2vw, 1rem);
 }
 
-/* ✅ Responsive for small screens */
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   Mobile-First Approach
+   =========================================================== */
+
+/* ========== MOBILE: max-width 480px ========== */
 @media (max-width: 480px) {
-  .rb-modal-content {
-    padding: 14px;
-    width: 95%;
-  }
-
-  .rb-modal form .btn-primary {
-    width: 100%;
-  }
-
-  .datetime-row {
-    flex-direction: column;
-    gap: 6px;
-  }
-}
-
-/* ------------------ RESPONSIVE ENHANCEMENTS & HAMBURGER MENU ------------------ */
-
-/* Reset mobile-first single column layout base */
-body, html {
-  overflow-x: hidden;
-}
-
-.navbar {
-  position: relative;
-  z-index: 1000;
-}
-
-/* Hamburger menu button - hidden on desktop */
-.hamburger {
-  display: block;
-  cursor: pointer;
-  width: 30px;
-  height: 22px;
-  position: relative;
-  margin-left: auto;
-  align-self: center;
-  flex-shrink: 0;
-  z-index: 1100;
-}
-
-/* Hamburger bars */
-.hamburger span {
-  background: var(--color-primary);
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  border-radius: 4px;
-  left: 0;
-  transition: 0.3s ease;
-}
-
-/* Hamburger bars position */
-.hamburger span:nth-child(1) {
-  top: 0px;
-}
-.hamburger span:nth-child(2) {
-  top: 9px;
-}
-.hamburger span:nth-child(3) {
-  top: 18px;
-}
-
-/* Hamburger active state */
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg);
-  top: 9px;
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg);
-  top: 9px;
-}
-
-/* Mobile nav-links - hidden by default */
-.navbar .nav-links {
-  display: none;
-  flex-direction: column;
-  gap: 15px;
-  background-color: var(--color-darker);
-  position: absolute;
-  top: 60px;
-  left: 0;
-  right: 0;
-  padding: 15px 20px;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* Show mobile nav on active class */
-.navbar .nav-links.active {
-  display: flex;
-}
-
-/* Navbar container flex for mobile */
-.navbar .container.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-}
-
-/* Nav link styles - touch friendly */
-.navbar .nav-links a {
-  font-size: 18px;
-  font-weight: 600;
-  padding: 10px;
-  border-radius: 6px;
-}
-
-/* Nav link hover background on mobile */
-.navbar .nav-links a:hover {
-  background-color: var(--color-primary);
-  color: var(--color-light);
-}
-
-/* Dropdown content mobile positioning */
-.navbar .dropdown-content {
-  position: static;
-  box-shadow: none;
-  background-color: transparent;
-  padding: 0;
-  margin-top: 0;
-}
-
-/* Dropdown hover disable on mobile (toggle only) */
-.navbar .dropdown:hover .dropdown-content {
-  display: none;
-}
-
-/* Dropdown menu active state */
-.navbar .nav-links .dropdown.active .dropdown-content {
-  display: block;
-  background-color: var(--color-darker);
-  padding: 12px 15px;
-  border-radius: 6px;
-  margin-top: 8px;
-}
-
-/* Responsive containers */
-.container {
-  width: 95%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Make sections single column on mobile first */
-section, main, footer {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-/* Hero content adjusts */
-.hero .hero-content {
-  flex-direction: column;
-  text-align: center;
-}
-
-.hero .hero-text h1 {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-.hero .hero-text p {
-  font-size: 16px;
-  margin-bottom: 30px;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero .hero-image {
-  width: 100%;
-  min-height: 250px;
-  background-size: contain;
-  background-position: center;
-  margin-bottom: 30px;
-}
-
-/* Pricing grids mobile */
-.pricing .pricing-grid-2 {
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-/* Service grid mobile */
-.services .service-grid {
-  grid-template-columns: 1fr;
-  gap: 15px;
-}
-
-/* Footer grids mobile */
-.footer .footer-grid {
-  grid-template-columns: 1fr;
-  gap: 20px;
-  text-align: center;
-}
-
-/* Tablet Landscape and Portrait: 481px to 1024px */
-@media (min-width: 481px) and (max-width: 1024px) {
-
-  body {
-    font-size: 16px;
-  }
-
-  /* Show hamburger on tablets only for portrait */
-  .hamburger {
-    display: block;
-  }
-
-  .navbar .nav-links {
-    position: static;
-    display: flex !important;
-    flex-direction: row !important;
-    background: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    gap: 20px;
-  }
-
-  .navbar .nav-links a {
-    font-size: 16px;
-    padding: 8px 0;
-  }
-
-  /* Dropdowns on hover for tablets */
-  .navbar .nav-links .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-  /* Dropdown content positioning fixed */
-  .navbar .dropdown-content {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-darker);
-    padding: 10px 0;
-    border-radius: 6px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    min-width: 160px;
-    z-index: 9999;
-  }
-
-  /* Hero two-column layout */
-  .hero .hero-content {
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
-  }
-
-  /* Hero text adjustments */
-  .hero .hero-text {
-    flex: 1;
-    padding-right: 20px;
-  }
-
-  .hero .hero-text h1 {
-    font-size: 36px;
-  }
-
-  .hero .hero-text p {
-    font-size: 18px;
-    max-width: 90%;
-  }
-
-  /* Hero image column */
-  .hero .hero-image {
-    flex: 1;
-    min-height: 350px;
-    background-size: contain;
-    background-position: center;
-    margin-bottom: 0;
-  }
-
-  /* Services 2 column grid */
-  .services .service-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-  }
-
-  /* Pricing 2-column grid */
-  .pricing .pricing-grid-2 {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-  }
-
-  /* Footer 2-column grid */
-  .footer .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    text-align: left;
-  }
-}
-
-/* Desktop and Large Screens: Above 1024px */
-@media (min-width: 1025px) {
-
-  body {
-    font-size: 18px;
-  }
-
-  .container {
-    max-width: 1300px;
-    width: 95%;
-  }
-
-  /* Navbar flex row */
-  .navbar .container.nav-inner {
-    justify-content: space-between;
-  }
-
-  /* Nav links horizontal row, no hamburger */
-  .navbar .nav-links {
-    display: flex !important;
-    position: static !important;
-    flex-direction: row !important;
-    background: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    gap: 30px;
-  }
-
-  .navbar .nav-links a {
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  /* Dropdown on hover */
-  .navbar .nav-links .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-  /* Hero two-column with larger image */
-  .hero .hero-content {
-    flex-direction: row;
-    gap: 50px;
-  }
-
-  .hero .hero-text h1 {
-    font-size: 48px;
-  }
-
-  .hero .hero-text p {
-    font-size: 16px;
-  }
-
-  .hero .hero-image {
-    min-height: 400px;
-    background-size: contain;
-    background-position: center;
-  }
-
-  /* Services 3 column on large screens */
-  .services .service-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  /* Pricing two column */
-  .pricing .pricing-grid-2 {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  /* Footer 4 column grid */
-  .footer .footer-grid {
-    grid-template-columns: 1.5fr 1fr 1.5fr 1.5fr;
-    gap: 40px;
-  }
-}
-
-
-/* Base style for pricing cards */
-.pricing-plan {
-  background: #0d0d0d;
-  border: 1px solid #222;
-  border-radius: 10px;
-  padding: 30px;
-  text-align: center;
-  transition: all 0.3s ease;
-  position: relative;
-  
-}
-
-/* Hidden orange line (appears on hover) */
-.pricing-plan::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 4px;
-  background-color: #ff8a00;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  transition: width 0.3s ease;
-}
-
-/* Hover effect */
-.pricing-plan:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(255, 138, 0, 0.3);
-}
-
-/* Bottom border appears */
-.pricing-plan:hover::after {
-  width: 100%;
-}
-
-/* profile icon image */
-/* Profile Icon — neat small circle next to phone number */
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.profile-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid #ff7b00;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.profile-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.profile-icon:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 8px rgba(255, 123, 0, 0.4);
-}
-.nav-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  object-fit: cover;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  position: relative;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-}
-
-.nav-links a:hover {
-  color: #ff6600;
-}
-
-/* Dropdown Content Hidden by Default */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;                /* 👈 dropdown ko center me shift karega */
-  transform: translateX(-50%);  /* 👈 ye center alignment perfect banata hai */
-  background-color: #111;
-  border-radius: 8px;
-  padding: 10px 0;
-  min-width: 180px;
-  z-index: 999;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-}
-
-
-/* Show Dropdown on Hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content li {
-  padding: 8px 15px;
-}
-
-.dropdown-content li a {
-  color: #fff;
-  font-size: 14px;
-}
-
-.dropdown-content li a:hover {
-  color: #ff6600;
-}
-
-/* === Chatbot Button === */
-#chatbot-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: #007bff;
-  color: white;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  z-index: 9999;
-  transition: all 0.3s ease;
-}
-
-#chatbot-btn:hover {
-  background: #0056b3;
-  transform: scale(1.05);
-}
-
-/* === Chatbot Popup === */
-#chatbot-popup {
-  display: none;
-  position: fixed;
-  bottom: 100px;
-  right: 30px;
-  width: 320px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  padding: 10px;
-  z-index: 9999;
-  font-family: 'Poppins', sans-serif;
-  animation: fadeIn 0.3s ease;
-}
-
-/* === Chat Output === */
-#chat-output {
-  height: 250px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 8px;
-  background: #f8f8f8;
-  color: #222;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-/* === Chat Input Area === */
-#chat-input-area {
-  margin-top: 8px;
-  display: flex;
-  gap: 5px;
-}
-
-#chat-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-  color: #000;
-  background: #fff;
-}
-
-#chat-input::placeholder {
-  color: #999;
-}
-
-#send-btn {
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#send-btn:hover {
-  background: #0056b3;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ----------- MOBILE RESPONSIVE FIX -------------- */
-@media (max-width: 768px) {
-
-    .container, 
-    .hero, 
-    .services,
-    .card {
-        width: 100%;
-        padding: 10px;
+    .container {
+        padding: 0 clamp(0.75rem, 2vw, 1rem);
     }
 
-    h1, h2 {
-        font-size: 22px;
-        text-align: center;
+    section {
+        padding: clamp(2rem, 5vw, 3rem) 0;
     }
 
-    .navbar {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
-    button, 
     .btn {
         width: 100%;
-        padding: 12px;
-        font-size: 18px;
-    }
-
-    .popup {
-        width: 90%;
-        left: 5%;
-    }
-}
-
-/* ===== HERO SECTION RESPONSIVE FIX FOR MOBILE ===== */
-@media (max-width: 768px) {
-
-    .hero {
-        padding-top: 60px;
-        padding-bottom: 60px;
+        max-width: 100%;
+        padding: clamp(0.625rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.25rem);
     }
 
     .hero .hero-content {
-        flex-direction: column;   /* Image neeche aa jayegi */
-        text-align: center;
-        gap: 20px;
-    }
-
-    .hero .hero-text {
-        padding-right: 0;
+        gap: var(--spacing-md);
     }
 
     .hero .hero-text h1 {
-        font-size: 28px;
-        line-height: 1.3;
+        font-size: clamp(1.5rem, 6vw, 2rem);
     }
 
-    .hero .hero-text p {
-        font-size: 14px;
-        max-width: 100%;
-        margin: 0 auto 20px;
-    }
-
-    .hero .hero-image {
-        min-height: 220px;   /* Mobile ke liye chhoti height */
-        background-size: contain;
-        background-position: center;
-    }
-}
-@media (max-width: 768px) {
-    .stats .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
     .stats .stats-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
-}
-@media (max-width: 768px) {
-    .services .service-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
-@media (max-width: 480px) {
     .services .service-grid {
         grid-template-columns: 1fr;
     }
-}
-@media (max-width: 768px) {
+
     .pricing .pricing-grid-2 {
         grid-template-columns: 1fr;
     }
-}
-@media (max-width: 768px) {
+
+    .how-to .how-to-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .articles .bottom-articles-grid {
+        grid-template-columns: 1fr;
+    }
+
     .footer .footer-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .appointment .appointment-form {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: var(--spacing-md);
+        margin: var(--spacing-sm);
+    }
+
+    #chatbot-popup {
+        width: calc(100vw - 2rem);
+        right: 1rem;
+        left: 1rem;
     }
 }
 
-@media (max-width: 480px) {
+/* ========== SMALL TABLET: 481px - 767px ========== */
+@media (min-width: 481px) and (max-width: 767px) {
+    .stats .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .services .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .how-to .how-to-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .articles .bottom-articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .footer .footer-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        text-align: left;
+    }
+
+    .footer-col .service-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .appointment .appointment-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .datetime-row {
+        flex-direction: row;
+    }
+
+    .hero .hero-content {
+        flex-direction: column;
+        text-align: center;
     }
 }
-    @media (max-width: 768px) {
-    .navbar .container {
-        flex-direction: column;
-        gap: 15px;
+
+/* ========== TABLET: 768px - 1023px ========== */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .navbar .nav-links {
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        background: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        gap: var(--spacing-md);
+        width: auto;
+        order: 0;
+    }
+
+    .navbar .container.nav-inner {
+        flex-wrap: nowrap;
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    .nav-center {
+        width: auto;
+        order: 0;
+    }
+
+    .navbar .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--color-darker);
+        padding: var(--spacing-sm) 0;
+        border-radius: 6px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        min-width: 160px;
+        z-index: 9999;
+    }
+
+    .navbar .nav-links .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .hero .hero-content {
+        flex-direction: row;
+        text-align: left;
+        gap: var(--spacing-xl);
+    }
+
+    .hero .hero-text {
+        text-align: left;
+    }
+
+    .hero .hero-text p {
+        max-width: 90%;
+    }
+
+    .stats .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .services .section-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .services .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .maintenance .maintenance-content {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .pricing .pricing-content {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .pricing .pricing-grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-section .feature-content {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .feature-section .feature-text {
+        text-align: left;
+    }
+
+    .feature-section.layout-reversed .feature-content {
+        flex-direction: row-reverse;
+    }
+
+    .how-to .how-to-content {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .how-to .how-to-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .articles .bottom-articles-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .appointment .appointment-header {
+        text-align: left;
+    }
+
+    .footer .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .btn {
+        width: auto;
+        max-width: 300px;
+    }
+}
+
+/* ========== DESKTOP: 1024px - 1440px ========== */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 clamp(1.5rem, 3vw, 2rem);
     }
 
     .navbar .nav-links {
-        flex-direction: column;
-        gap: 15px;
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        background: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        gap: var(--spacing-md);
+        width: auto;
+        order: 0;
+    }
+
+    .navbar .container.nav-inner {
+        flex-wrap: nowrap;
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    .nav-center {
+        width: auto;
+        order: 0;
+    }
+
+    .navbar .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--color-darker);
+        padding: var(--spacing-sm) 0;
+        border-radius: 6px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        min-width: 160px;
+        z-index: 9999;
+    }
+
+    .navbar .nav-links .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .hero .hero-content {
+        flex-direction: row;
+        text-align: left;
+        gap: var(--spacing-xl);
+    }
+
+    .hero .hero-text {
+        text-align: left;
+    }
+
+    .hero .hero-text p {
+        max-width: 90%;
+    }
+
+    .stats .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .services .section-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .services .service-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .maintenance .maintenance-content {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .pricing .pricing-content {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .pricing .pricing-grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-section .feature-content {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .feature-section .feature-text {
+        text-align: left;
+    }
+
+    .feature-section.layout-reversed .feature-content {
+        flex-direction: row-reverse;
+    }
+
+    .how-to .how-to-content {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .how-to .how-to-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .articles .bottom-articles-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .appointment .appointment-header {
+        text-align: left;
+    }
+
+    .appointment .appointment-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer .footer-grid {
+        grid-template-columns: 1.5fr 1fr 1.5fr 1.5fr;
+        gap: var(--spacing-xl);
+    }
+
+    .footer-col .service-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .btn {
+        width: auto;
+        max-width: none;
+    }
+}
+
+/* ========== LARGE DESKTOP: 1441px+ ========== */
+@media (min-width: 1441px) {
+    .container {
+        max-width: 1400px;
+        padding: 0 clamp(2rem, 4vw, 3rem);
+    }
+
+    section {
+        padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+
+    .hero .hero-content {
+        gap: clamp(3rem, 6vw, 5rem);
+    }
+
+    .services .service-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-xl);
+    }
+
+    .pricing .pricing-grid-2 {
+        gap: var(--spacing-xl);
     }
 }

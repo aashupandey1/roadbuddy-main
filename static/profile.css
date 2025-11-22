@@ -33,9 +33,9 @@ body {
 .brand {
   background: #000;
   color: var(--accent);
-  padding: 16px 20px;
+  padding: clamp(0.875rem, 2vw, 1rem) clamp(1rem, 2.5vw, 1.25rem);
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
   text-align: center;
   border-bottom: 2px solid var(--accent);
   position: relative;
@@ -44,14 +44,14 @@ body {
 /* ---------- LOGOUT BUTTON ---------- */
 .logout-btn {
   position: absolute;
-  top: 16px;
-  right: 20px;
+  top: clamp(0.75rem, 2vw, 1rem);
+  right: clamp(0.75rem, 2vw, 1.25rem);
   color: #fff;
   background: transparent;
   border: 1px solid var(--accent);
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: clamp(0.5rem, 1.5vw, 0.625rem) clamp(0.75rem, 2vw, 0.875rem);
+  border-radius: clamp(6px, 1.5vw, 8px);
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
   text-decoration: none;
   transition: 0.3s;
 }
@@ -62,24 +62,28 @@ body {
 
 /* ---------- LAYOUT ---------- */
 main {
-  padding: 30px;
+  padding: clamp(1rem, 3vw, 1.875rem);
   max-width: 980px;
-  margin: 40px auto;
+  margin: clamp(1.5rem, 4vw, 2.5rem) auto;
+  box-sizing: border-box;
 }
 
 .page {
   background: var(--card);
-  padding: 30px 28px;
-  border-radius: 14px;
+  padding: clamp(1.25rem, 3vw, 1.875rem) clamp(1rem, 2.5vw, 1.75rem);
+  border-radius: clamp(10px, 2vw, 14px);
   box-shadow: 0 4px 12px rgba(255, 123, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ---------- HEADINGS ---------- */
 h2 {
   color: var(--accent);
-  margin-bottom: 10px;
+  margin-bottom: clamp(0.5rem, 1.5vw, 0.625rem);
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-size: clamp(1.125rem, 3vw, 1.5rem);
 }
 
 /* ---------- FORM STYLING ---------- */
@@ -87,20 +91,20 @@ form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: clamp(0.75rem, 2vw, 1.2rem);
 }
 
 .row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: 1fr;
+  gap: clamp(0.75rem, 2vw, 1.2rem);
   align-items: end;
 }
 
 label {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  font-size: clamp(0.8125rem, 2vw, 0.875rem);
   font-weight: 500;
   color: var(--text);
 }
@@ -111,15 +115,15 @@ input[type="tel"],
 input[type="date"],
 input[type="file"],
 textarea {
-  margin-top: 6px;
-  padding: 10px 14px;
-  border-radius: 8px;
+  margin-top: clamp(0.375rem, 1vw, 0.5rem);
+  padding: clamp(0.625rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 0.875rem);
+  border-radius: clamp(6px, 1.5vw, 8px);
   border: 1px solid #2b2b2b;
   background: #121212;
   color: var(--text);
-  font-size: 15px;
+  font-size: clamp(0.875rem, 2vw, 0.9375rem);
   width: 100%;
-  height: 46px;
+  min-height: clamp(40px, 6vw, 46px);
   line-height: 1.2;
   box-sizing: border-box;
   transition: 0.2s ease;
@@ -170,20 +174,22 @@ input[type="file"]::-webkit-file-upload-button:hover {
 .preview {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-top: 10px;
-  padding: 12px 16px;
-  border-radius: 10px;
+  gap: clamp(0.75rem, 2vw, 0.9375rem);
+  margin-top: clamp(0.5rem, 1.5vw, 0.625rem);
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1rem, 2vw, 1.125rem);
+  border-radius: clamp(8px, 1.5vw, 10px);
   background: #1a1a1a;
   border: 1px solid #2a2a2a;
+  flex-wrap: wrap;
 }
 
 .avatar {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
+  width: clamp(50px, 8vw, 70px);
+  height: clamp(50px, 8vw, 70px);
+  border-radius: clamp(8px, 1.5vw, 10px);
   object-fit: cover;
   border: 2px solid var(--accent);
+  flex-shrink: 0;
 }
 
 .meta {
@@ -191,29 +197,35 @@ input[type="file"]::-webkit-file-upload-button:hover {
   flex-direction: column;
   justify-content: center;
   color: var(--text);
-  font-size: 14px;
+  font-size: clamp(0.8125rem, 2vw, 0.875rem);
+  flex: 1;
+  min-width: 200px;
 }
 
 /* ---------- BUTTONS ---------- */
 .row.buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 1.5rem;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-top: clamp(1rem, 2.5vw, 1.5rem);
+  flex-wrap: wrap;
 }
 
 .btn {
-  padding: 10px 22px;
-  border-radius: 8px;
+  padding: clamp(0.625rem, 2vw, 0.75rem) clamp(1.125rem, 3vw, 1.375rem);
+  border-radius: clamp(6px, 1.5vw, 8px);
   border: 1px solid var(--accent);
   background: transparent;
   color: var(--accent);
   cursor: pointer;
   font-weight: 500;
-  font-size: 15px;
+  font-size: clamp(0.875rem, 2vw, 0.9375rem);
   transition: all 0.25s ease;
-  min-width: 120px;
+  min-width: clamp(100px, 15vw, 120px);
   text-align: center;
+  width: 100%;
+  max-width: 200px;
+  box-sizing: border-box;
 }
 
 .btn.primary {
@@ -307,20 +319,94 @@ input[type="file"]::-webkit-file-upload-button:hover {
 }
 
 /* ---------- RESPONSIVE ---------- */
-@media (max-width: 640px) {
+
+/* Mobile: max-width 480px */
+@media (max-width: 480px) {
+  main {
+    padding: clamp(0.75rem, 2vw, 1rem);
+    margin: clamp(1rem, 3vw, 1.5rem) auto;
+  }
+
+  .page {
+    padding: clamp(1rem, 2.5vw, 1.25rem) clamp(0.875rem, 2vw, 1rem);
+  }
+
   .row {
     grid-template-columns: 1fr;
   }
+
   .logout-btn {
-    top: 12px;
-    right: 12px;
-    padding: 6px 10px;
+    top: clamp(0.5rem, 1.5vw, 0.75rem);
+    right: clamp(0.5rem, 1.5vw, 0.75rem);
+    padding: clamp(0.375rem, 1.5vw, 0.5rem) clamp(0.625rem, 2vw, 0.75rem);
+    font-size: clamp(0.6875rem, 2vw, 0.75rem);
   }
+
   .row.buttons {
     justify-content: center;
+    flex-direction: column;
   }
+
+  .btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .preview.card,
   .details {
     max-width: 100%;
+  }
+
+  .preview {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .avatar {
+    margin: 0 auto;
+  }
+}
+
+/* Small Tablet: 481px - 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .row.buttons {
+    justify-content: center;
+  }
+
+  .btn {
+    width: auto;
+    max-width: 180px;
+  }
+}
+
+/* Tablet: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .row {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .row.buttons {
+    justify-content: flex-end;
+  }
+
+  .btn {
+    width: auto;
+    max-width: 200px;
+  }
+}
+
+/* Desktop: 1024px+ */
+@media (min-width: 1024px) {
+  .row {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .btn {
+    width: auto;
+    max-width: none;
   }
 }

@@ -30,15 +30,15 @@
   transform: translate(-50%, -55%) scale(0.95);
   background: #0d0d0d;
   color: #fff;
-  padding: 40px 45px;
-  border-radius: 18px;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2.8125rem);
+  border-radius: clamp(12px, 2vw, 18px);
   box-shadow: 0 0 30px rgba(255, 140, 0, 0.7);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
-  width: 360px;
+  gap: clamp(1rem, 3vw, 1.5625rem);
+  width: clamp(280px, 90vw, 360px);
   max-width: 90%;
   z-index: 9999; /* ✅ above overlay */
   border: 1px solid rgba(255, 165, 0, 0.4);
@@ -66,19 +66,22 @@
   color: #ffa31a;
   text-transform: uppercase;
   text-shadow: 0 0 8px rgba(255, 165, 0, 0.7);
+  font-size: clamp(1.125rem, 3vw, 1.5rem);
 }
 
 /* ---------- Input Fields ---------- */
 .popup input {
-  padding: 12px;
+  padding: clamp(0.75rem, 2vw, 0.875rem);
   border: 1px solid rgba(255, 165, 0, 0.4);
-  border-radius: 10px;
+  border-radius: clamp(8px, 1.5vw, 10px);
   background: #1a1a1a;
   color: #fff;
-  width: 90%;
+  width: 100%;
+  max-width: 100%;
   text-align: center;
-  font-size: 15px;
+  font-size: clamp(0.875rem, 2vw, 0.9375rem);
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .popup input:focus {
@@ -90,9 +93,9 @@
 /* ---------- Buttons ---------- */
 .popup button,
 .otp-btn {
-  padding: 12px 26px;
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.25rem, 3vw, 1.625rem);
   border: none;
-  border-radius: 8px;
+  border-radius: clamp(6px, 1.5vw, 8px);
   background: linear-gradient(135deg, #ff8c00, #ff5500);
   color: white;
   cursor: pointer;
@@ -100,8 +103,11 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  width: fit-content;
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(0.8125rem, 2vw, 0.875rem);
   box-shadow: 0 0 10px rgba(255, 140, 0, 0.6);
+  box-sizing: border-box;
 }
 
 .popup button:hover,
@@ -120,7 +126,7 @@
 /* ---------- Paragraph Text ---------- */
 .popup p {
   color: #ffa31a;
-  font-size: 15px;
+  font-size: clamp(0.8125rem, 2vw, 0.9375rem);
   margin: 0;
   line-height: 1.4;
 }
@@ -143,25 +149,57 @@
   text-shadow: 0 0 4px rgba(255, 165, 0, 0.6);
 }
 
-/* ---------- Mobile Responsive ---------- */
+/* ---------- Mobile Responsive: max-width 480px ---------- */
 @media (max-width: 480px) {
   .popup {
-    width: 90%;
-    padding: 28px 20px;
-    gap: 18px;
+    width: calc(100vw - 2rem);
+    padding: clamp(1.25rem, 4vw, 1.75rem) clamp(1rem, 3vw, 1.25rem);
+    gap: clamp(0.875rem, 3vw, 1.125rem);
+    max-width: calc(100vw - 2rem);
   }
 
   .popup input {
     width: 100%;
+    font-size: clamp(0.875rem, 2.5vw, 0.9375rem);
   }
 
   .popup button,
   .otp-btn {
     width: 100%;
+    padding: clamp(0.75rem, 2.5vw, 0.875rem) clamp(1rem, 3vw, 1.25rem);
   }
 
-  .popup h2 {
-    font-size: 1.3rem;
+  .popup h2,
+  .popup h3 {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+  }
+}
+
+/* ---------- Small Tablet: 481px - 767px ---------- */
+@media (min-width: 481px) and (max-width: 767px) {
+  .popup {
+    width: clamp(320px, 80vw, 400px);
+    padding: clamp(1.75rem, 4vw, 2.25rem) clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .popup button,
+  .otp-btn {
+    width: auto;
+    min-width: 200px;
+  }
+}
+
+/* ---------- Tablet & Desktop: 768px+ ---------- */
+@media (min-width: 768px) {
+  .popup {
+    width: clamp(360px, 50vw, 450px);
+    padding: clamp(2rem, 4vw, 2.5rem) clamp(1.75rem, 3vw, 2.8125rem);
+  }
+
+  .popup button,
+  .otp-btn {
+    width: auto;
+    min-width: 220px;
   }
 }
 

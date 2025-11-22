@@ -1,34 +1,136 @@
+/* ======= ROADBUDDY EV CHARGERS ======= */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", Arial, sans-serif;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 0;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 #map {
-  flex: 3;
-  height: 100vh;
+  flex: 1;
+  width: 100%;
+  min-height: clamp(300px, 50vh, 500px);
+  height: clamp(300px, 50vh, 500px);
+  order: 1;
 }
 
 #station-list {
   flex: 1;
   background: #f4f4f9;
-  padding: 1rem;
+  padding: clamp(0.75rem, 2vw, 1rem);
   overflow-y: auto;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  order: 2;
+  max-height: clamp(300px, 50vh, 500px);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #station-list ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 #station-list li {
   background: white;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 10px;
+  padding: clamp(0.625rem, 2vw, 0.75rem);
+  margin: clamp(0.5rem, 1.5vw, 0.625rem) 0;
+  border-radius: clamp(8px, 1.5vw, 10px);
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#station-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* ======= RESPONSIVE DESIGN ======= */
+
+/* Mobile: max-width 480px */
+@media (max-width: 480px) {
+  body {
+    flex-direction: column;
+  }
+
+  #map {
+    min-height: clamp(250px, 40vh, 350px);
+    height: clamp(250px, 40vh, 350px);
+    order: 1;
+  }
+
+  #station-list {
+    max-height: clamp(250px, 40vh, 350px);
+    order: 2;
+    padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  }
+
+  #station-list li {
+    padding: clamp(0.5rem, 1.5vw, 0.625rem);
+    margin: clamp(0.375rem, 1vw, 0.5rem) 0;
+  }
+}
+
+/* Small Tablet: 481px - 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+  body {
+    flex-direction: column;
+  }
+
+  #map {
+    min-height: clamp(350px, 50vh, 450px);
+    height: clamp(350px, 50vh, 450px);
+  }
+
+  #station-list {
+    max-height: clamp(350px, 50vh, 450px);
+  }
+}
+
+/* Tablet: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    flex-direction: row;
+  }
+
+  #map {
+    flex: 2;
+    height: 100vh;
+    min-height: 100vh;
+    order: 1;
+  }
+
+  #station-list {
+    flex: 1;
+    max-height: 100vh;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    order: 2;
+  }
+}
+
+/* Desktop: 1024px+ */
+@media (min-width: 1024px) {
+  body {
+    flex-direction: row;
+  }
+
+  #map {
+    flex: 3;
+    height: 100vh;
+    min-height: 100vh;
+    order: 1;
+  }
+
+  #station-list {
+    flex: 1;
+    max-height: 100vh;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    order: 2;
+  }
 }
