@@ -1198,7 +1198,9 @@ def admin_dashboard():
     # ---- Chart data ----
     cur.execute("""
         SELECT MONTHNAME(created_at) AS month, COUNT(*) AS count
-        FROM bookings GROUP BY MONTH(created_at)
+        FROM bookings 
+        GROUP BY MONTHNAME(created_at)
+        ORDER BY MIN(created_at)
     """)
     bookings_data = cur.fetchall()
 
