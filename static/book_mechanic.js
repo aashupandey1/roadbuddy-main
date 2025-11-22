@@ -12,15 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function setBookBtnState() {
     const address = addressInput?.value.trim() || "";
     const enabled = address !== "" && address !== "Detecting your location...";
-    bookBtn.disabled = !enabled;
-    bookBtn.style.opacity = enabled ? "1" : "0.6";
+    if (bookBtn) {
+        bookBtn.disabled = !enabled;
+        bookBtn.style.opacity = enabled ? "1" : "0.6";
+    }
   }
 
   if (addressInput) {
     addressInput.removeAttribute("readonly");
     addressInput.addEventListener("input", () => {
-      latInput.value = "";
-      lngInput.value = "";
+      if(latInput) latInput.value = "";
+      if(lngInput) lngInput.value = "";
       setBookBtnState();
     });
   }
@@ -48,8 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
-        latInput.value = lat;
-        lngInput.value = lon;
+        if(latInput) latInput.value = lat;
+        if(lngInput) lngInput.value = lon;
 
         fetch(`/api/reverse_geocode?lat=${lat}&lon=${lon}`)
           .then((res) => res.json())
@@ -72,64 +74,66 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ⭐⭐⭐ FIXED PART — REAL EMERGENCY BOOKING ⭐⭐⭐
-  bookBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
+  if (bookBtn) {
+      bookBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
 
-    const fullname = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const vehicle = document.getElementById("vehicle").value.trim();
-    const problem = document.getElementById("service_type").value.trim();
-    const address = addressInput.value.trim();
-    const lat = latInput.value || "0";
-    const lng = lngInput.value || "0";
+        const fullname = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const vehicle = document.getElementById("vehicle").value.trim();
+        const problem = document.getElementById("service_type").value.trim();
+        const address = addressInput.value.trim();
+        const lat = latInput ? latInput.value : "0";
+        const lng = lngInput ? lngInput.value : "0";
 
-    if (!fullname || !phone || !vehicle || !problem || !address) {
-      showPopup("⚠️ Please fill all required fields!", "error");
-      return;
-    }
+        if (!fullname || !phone || !vehicle || !problem || !address) {
+          showPopup("⚠️ Please fill all required fields!", "error");
+          return;
+        }
 
-    bookBtn.disabled = true;
-    const oldText = bookBtn.innerText;
-    bookBtn.innerText = "Booking...";
+        bookBtn.disabled = true;
+        const oldText = bookBtn.innerText;
+        bookBtn.innerText = "Booking...";
 
-    try {
-      const formData = new FormData();
-      formData.append("name", fullname);
-      formData.append("phone", phone);
-      formData.append("vehicle", vehicle);
-      formData.append("address", address);
-      formData.append("lat", lat);
-      formData.append("lng", lng);
-      formData.append("service_type", problem);
+        try {
+          const formData = new FormData();
+          formData.append("name", fullname);
+          formData.append("phone", phone);
+          formData.append("vehicle", vehicle);
+          formData.append("address", address);
+          formData.append("lat", lat);
+          formData.append("lng", lng);
+          formData.append("service_type", problem);
 
-      // ⭐ SEND DIRECTLY TO FLASK EMAIL LOGIC ⭐
-      const resp = await fetch("/process_booking", {
-        method: "POST",
-        body: formData,
+          // ⭐ SEND TO FLASK ⭐
+          const resp = await fetch("/process_booking", {
+            method: "POST",
+            body: formData,
+          });
+          
+          // ✅ FIX: Check if request was successful
+          // Flask redirect karta hai, toh resp.url mein naya URL (success page) aa jata hai
+          if (resp.ok) {
+              // Browser ko naye URL par bhejo
+              window.location.href = resp.url;
+              return;
+          }
+
+          showPopup("⚠️ Server error. Could not book.", "error");
+
+        } catch (err) {
+          console.error(err);
+          showPopup("⚠️ Connection error. Try again.", "error");
+        } finally {
+          bookBtn.disabled = false;
+          bookBtn.innerText = oldText;
+          setBookBtnState();
+        }
       });
-      
-    const text = await resp.text();
-
-    if (text.includes("emergency_success")) {
-    const redirectUrl = resp.url || "/emergency_success";
-    window.location.href = redirectUrl;
-    return;
-     }
-
-
-      showPopup("⚠️ Booking saved but no redirect received.", "error");
-
-    } catch (err) {
-      showPopup("⚠️ Server error. Try again.", "error");
-    } finally {
-      bookBtn.disabled = false;
-      bookBtn.innerText = oldText;
-      setBookBtnState();
-    }
-  });
+  }
 });
 
-// Popup message
+// Popup message function
 function showPopup(message, type = "success") {
   const popup = document.createElement("div");
   popup.style.position = "fixed";
