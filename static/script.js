@@ -366,3 +366,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// Hamburger menu toggle functionality
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+const dropdowns = document.querySelectorAll('.nav-links .dropdown');
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+}
+
+// Toggle dropdown menus on click in mobile mode (when nav-links vertical)
+dropdowns.forEach(dropdown => {
+  const dropdownLink = dropdown.querySelector('a');
+  if (dropdownLink) {
+    dropdownLink.addEventListener('click', (e) => {
+      if (window.innerWidth <= 1024) { // apply only on tablets/mobile
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+      }
+    });
+  }
+});

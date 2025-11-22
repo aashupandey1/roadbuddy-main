@@ -1787,6 +1787,362 @@ body {
   }
 }
 
+/* ------------------ RESPONSIVE ENHANCEMENTS & HAMBURGER MENU ------------------ */
+
+/* Reset mobile-first single column layout base */
+body, html {
+  overflow-x: hidden;
+}
+
+.navbar {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Hamburger menu button - hidden on desktop */
+.hamburger {
+  display: block;
+  cursor: pointer;
+  width: 30px;
+  height: 22px;
+  position: relative;
+  margin-left: auto;
+  align-self: center;
+  flex-shrink: 0;
+  z-index: 1100;
+}
+
+/* Hamburger bars */
+.hamburger span {
+  background: var(--color-primary);
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  border-radius: 4px;
+  left: 0;
+  transition: 0.3s ease;
+}
+
+/* Hamburger bars position */
+.hamburger span:nth-child(1) {
+  top: 0px;
+}
+.hamburger span:nth-child(2) {
+  top: 9px;
+}
+.hamburger span:nth-child(3) {
+  top: 18px;
+}
+
+/* Hamburger active state */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 9px;
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 9px;
+}
+
+/* Mobile nav-links - hidden by default */
+.navbar .nav-links {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+  background-color: var(--color-darker);
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  padding: 15px 20px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Show mobile nav on active class */
+.navbar .nav-links.active {
+  display: flex;
+}
+
+/* Navbar container flex for mobile */
+.navbar .container.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+/* Nav link styles - touch friendly */
+.navbar .nav-links a {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Nav link hover background on mobile */
+.navbar .nav-links a:hover {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+
+/* Dropdown content mobile positioning */
+.navbar .dropdown-content {
+  position: static;
+  box-shadow: none;
+  background-color: transparent;
+  padding: 0;
+  margin-top: 0;
+}
+
+/* Dropdown hover disable on mobile (toggle only) */
+.navbar .dropdown:hover .dropdown-content {
+  display: none;
+}
+
+/* Dropdown menu active state */
+.navbar .nav-links .dropdown.active .dropdown-content {
+  display: block;
+  background-color: var(--color-darker);
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+/* Responsive containers */
+.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Make sections single column on mobile first */
+section, main, footer {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Hero content adjusts */
+.hero .hero-content {
+  flex-direction: column;
+  text-align: center;
+}
+
+.hero .hero-text h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.hero .hero-text p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero .hero-image {
+  width: 100%;
+  min-height: 250px;
+  background-size: contain;
+  background-position: center;
+  margin-bottom: 30px;
+}
+
+/* Pricing grids mobile */
+.pricing .pricing-grid-2 {
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Service grid mobile */
+.services .service-grid {
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+/* Footer grids mobile */
+.footer .footer-grid {
+  grid-template-columns: 1fr;
+  gap: 20px;
+  text-align: center;
+}
+
+/* Tablet Landscape and Portrait: 481px to 1024px */
+@media (min-width: 481px) and (max-width: 1024px) {
+
+  body {
+    font-size: 16px;
+  }
+
+  /* Show hamburger on tablets only for portrait */
+  .hamburger {
+    display: block;
+  }
+
+  .navbar .nav-links {
+    position: static;
+    display: flex !important;
+    flex-direction: row !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 20px;
+  }
+
+  .navbar .nav-links a {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+
+  /* Dropdowns on hover for tablets */
+  .navbar .nav-links .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Dropdown content positioning fixed */
+  .navbar .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-darker);
+    padding: 10px 0;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    min-width: 160px;
+    z-index: 9999;
+  }
+
+  /* Hero two-column layout */
+  .hero .hero-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+  }
+
+  /* Hero text adjustments */
+  .hero .hero-text {
+    flex: 1;
+    padding-right: 20px;
+  }
+
+  .hero .hero-text h1 {
+    font-size: 36px;
+  }
+
+  .hero .hero-text p {
+    font-size: 18px;
+    max-width: 90%;
+  }
+
+  /* Hero image column */
+  .hero .hero-image {
+    flex: 1;
+    min-height: 350px;
+    background-size: contain;
+    background-position: center;
+    margin-bottom: 0;
+  }
+
+  /* Services 2 column grid */
+  .services .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  /* Pricing 2-column grid */
+  .pricing .pricing-grid-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  /* Footer 2-column grid */
+  .footer .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    text-align: left;
+  }
+}
+
+/* Desktop and Large Screens: Above 1024px */
+@media (min-width: 1025px) {
+
+  body {
+    font-size: 18px;
+  }
+
+  .container {
+    max-width: 1300px;
+    width: 95%;
+  }
+
+  /* Navbar flex row */
+  .navbar .container.nav-inner {
+    justify-content: space-between;
+  }
+
+  /* Nav links horizontal row, no hamburger */
+  .navbar .nav-links {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 30px;
+  }
+
+  .navbar .nav-links a {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  /* Dropdown on hover */
+  .navbar .nav-links .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Hero two-column with larger image */
+  .hero .hero-content {
+    flex-direction: row;
+    gap: 50px;
+  }
+
+  .hero .hero-text h1 {
+    font-size: 48px;
+  }
+
+  .hero .hero-text p {
+    font-size: 16px;
+  }
+
+  .hero .hero-image {
+    min-height: 400px;
+    background-size: contain;
+    background-position: center;
+  }
+
+  /* Services 3 column on large screens */
+  .services .service-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Pricing two column */
+  .pricing .pricing-grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Footer 4 column grid */
+  .footer .footer-grid {
+    grid-template-columns: 1.5fr 1fr 1.5fr 1.5fr;
+    gap: 40px;
+  }
+}
+
 
 /* Base style for pricing cards */
 .pricing-plan {
